@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Resource Definitions//EN" "http://glassfish.org/dtds/glassfish-resources_1_5.dtd">
+<resources>
+<jdbc-connection-pool wrap-jdbc-objects="false" validate-atmost-once-period-in-seconds="0" 
+                           steady-pool-size="8" statement-timeout-in-seconds="-1" 
+                           res-type="javax.sql.DataSource" pool-resize-quantity="2" 
+                           non-transactional-connections="false" name="TCC_Pool" 
+                           max-wait-time-in-millis="60000" max-pool-size="32" 
+                           max-connection-usage-count="0" match-connections="false" 
+                           lazy-connection-enlistment="false" lazy-connection-association="false" 
+                           is-isolation-level-guaranteed="true" is-connection-validation-required="false" 
+                           idle-timeout-in-seconds="300" fail-all-connections="false" 
+                           datasource-classname="org.postgresql.ds.PGSimpleDataSource" 
+                           connection-validation-method="auto-commit" connection-leak-timeout-in-seconds="0" 
+                           connection-leak-reclaim="false" connection-creation-retry-interval-in-seconds="10" 
+                           connection-creation-retry-attempts="0" associate-with-thread="false" 
+                           allow-non-component-callers="false">
+        <property name="serverName" value="localhost"/>
+        <property name="portNumber" value="5432"/>
+        <property name="databaseName" value="OST"/>
+        <property name="User" value="postgres"/>
+        <property name="Password" value="adm"/>
+        <property name="URL" value="jdbc:postgresql://localhost:5432/OST"/>
+        <property name="driverClass" value="org.postgresql.Driver"/>
+    </jdbc-connection-pool>
+
+    <jdbc-resource pool-name="TCC_Pool" 
+                   object-type="user" jndi-name="jdbc/tcc" enabled="true"/>
+
+</resources>
