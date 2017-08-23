@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="formEdicao">
+        <h:panelGroup rendered="#{controleUsuario.editando}">
+            <div class="ui-fluid">
+                <p:messages/>
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-20"
+                             layout="grid" styleClass="ui-panelgrid-blank">
+                    <f:facet name="header">
+                        <p:outputLabel value="Edição de Usuários"/>
+                    </f:facet>
+                    <p:outputLabel for="txtID" value="ID"/>
+                    <p:inputText id="txtID" value="#{controleUsuario.objeto.id}" readonly="true"
+                                 size="10"/>
+                    <p:outputLabel for="txtNome" value="Nome"/>
+                    <p:inputText id="txtNome" value="#{controleUsuario.objeto.nome}"
+                                 size="40" maxlength="40"
+                                 required="true"
+                                 requiredMessage="O nome deve ser informado"
+                                 placeholder="Obrigatório"/>
+                    <p:outputLabel for="txtEmail" value="Email"/>
+                    <p:inputText id="txtEmail" value="#{controleUsuario.objeto.email}"
+                                 size="50" maxlength="50"
+                                 required="true"
+                                 requiredMessage="O email deve ser informado"
+                                 placeholder="Obrigatório"/>
+                    <p:outputLabel for="txtNascimento" value="Nascimento"/>
+                    <p:calendar id="txtNascimento" value="#{controleUsuario.objeto.nascimento}"
+                                mask="true" pattern="dd/MM/yyyy"
+                                placeholder="Obrigatório"
+                                required="true"
+                                requiredMessage="O nascimento deve ser informado"
+                                navigator="true">
+                        <f:converter converterId="converterCalendar"/>
+                    </p:calendar>
+                    <p:outputLabel value="Nome de usuário" for="txtUsuario"/>
+                    <p:inputText id="txtUsuario" value="#{controleUsuario.objeto.usuario}"
+                                 size="30" maxlength="30" placeholder="Obrigatório"/>
+                    <p:outputLabel value="Senha" for="txtSenha"/>
+                    <p:password id="txtSenha" value="#{controleUsuario.objeto.senha}"
+                                redisplay="true" size="20" maxlength="20"
+                                placeholder="Obrigatório"/>
+                    <p:outputLabel value="Setor" for="selectSetor"/>
+                    <p:selectOneMenu id="selectSetor" value="#{controleUsuario.objeto.setor}">
+                        <f:converter converterId="converterSetor"/>
+                        <f:selectItem itemLabel="Selecione um registro"
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{controleUsuario.daoSetor.listaTodos}"
+                                       var="s" itemLabel="#{s.nome}"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                     actionListener="#{controleUsuario.salvar()}"
+                                     update="formEdicao :formListagem"/>
+                </p:panelGrid>
+
+                <h:panelGroup id="painelPermissao">
+                    <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-20"
+                                 layout="grid" styleClass="ui-panelgrid-blank" 
+                                 rendered="#{controleUsuario.editandoPermissao}">
+                        <f:facet name="header">
+                            <p:outputLabel value="Edição de permissão do usuário"/>
+                        </f:facet>
+                        <p:outputLabel value="Permissão"/>
+                        <p:selectOneMenu id="cbxPermissao" value="#{controleUsuario.permissao}">
+                            <f:selectItem itemLabel="Selecione um registro"
+                                          noSelectionOption="true"/>
+                            <f:selectItems value="#{controleUsuario.daoPermissao.listaTodos}"
+                                           var="p" itemLabel="#{p.nome}"/>
+                            <f:converter converterId="converterPermissao"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value=""/>
+                        <p:commandButton id="btnSalvarPermissao" icon="ui-icon-disk"
+                                         actionListener="#{controleUsuario.salvarPermissao()}"
+                                         process="cbxPermissao btnSalvarPermissao"
+                                         update="painelPermissao listagemPermissao"/>                                         
+                    </p:panelGrid>                
+                    <p:growl/>
+                </h:panelGroup>
+            </div>
+            <h:panelGroup id="listagemPermissao">
+                <h:panelGroup rendered="#{!controleUsuario.editandoPermissao}">
+                    <p:commandButton value="Nova permissão" icon="ui-icon-plus"
+                                     actionListener="#{controleUsuario.novaPermissao()}"
+                                     update="painelPermissao listagemPermissao"
+                                     process="@this"
+                                     id="btnNovaPermissao"/>
+                    <p:dataTable value="#{controleUsuario.objeto.permissoes}"
+                                 var="per" reflow="true">
+                        <f:facet name="header">
+                            <p:outputLabel value="Permissões do Usuário"/>
+                        </f:facet>
+                        <p:column headerText="Nome">
+                            <p:outputLabel value="#{per.nome}"/>
+                        </p:column>
+                        <p:column headerText="Descrição">
+                            <p:outputLabel value="#{per.descricao}"/>
+                        </p:column>                        
+                        <p:column headerText="Ações">
+                            <div align="center">
+                                <p:commandButton icon="ui-icon-trash"
+                                                 actionListener="#{controleUsuario.removerPermissao(per)}"
+                                                 process="@this" update="@form"/>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGroup>
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:form>
+</html>
+

@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="formEdicao">
+        <h:panelGroup rendered="#{controleProjeto.editando}">
+            <div class="ui-fluid">
+                <p:messages/>
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-13"
+                             layout="grid" styleClass="ui-panelgrid-blank">
+                    <f:facet name="header">
+                        <p:outputLabel value="Edição de Usuários"/>
+                    </f:facet>     
+                    <p:outputLabel for="txtID" value="ID"/>
+                    <p:inputText id="txtID" value="#{controleProjeto.objeto.id}"
+                                 size="5" maxlength="5"/>                      
+                    <p:outputLabel for="txtNome" value="Nome"/>
+                    <p:inputText id="txtNome" value="#{controleProjeto.objeto.nome}"
+                                 size="50" maxlength="50"
+                                 placeholder="Obrigatório"/>  
+                    <p:outputLabel for="txtDescricao" value="Descrição"/>
+                    <p:editor id="txtDescricao" value="#{controleProjeto.objeto.descricao}" />                        
+                    <p:outputLabel for="txtInicio" value="Inicio"/>
+                    <p:calendar id="txtInicio" 
+                                value="#{controleProjeto.objeto.inicio}"
+                                pattern="dd/MM/yyyy" mask="true"                              
+                                navigator="true" >
+                        <f:converter converterId="converterCalendar"/>
+                    </p:calendar>
+                    <p:outputLabel for="txtFim" value="Fim"/>
+                    <p:calendar id="txtFim" 
+                                value="#{controleProjeto.objeto.fim}"
+                                pattern="dd/MM/yyyy" mask="true"                              
+                                navigator="true" >
+                        <f:converter converterId="converterCalendar"/>
+                    </p:calendar>                    
+                    <p:outputLabel for="cbxSetor" value="Setor"/>
+                    <p:selectOneMenu id="cbxSetor" value="#{controleProjeto.objeto.setor}">
+                        <f:selectItem itemLabel="Selecione um registro" noSelectionOption="true"/>
+                        <f:selectItems value="#{controleProjeto.daoSetor.listaTodos}"
+                                       var="s"
+                                       itemLabel="#{s.nome}"/>
+                        <f:converter converterId="converterSetor"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Ativo" for="selectAtivo"/>
+                    <p:selectBooleanCheckbox id="selectAtivo" value="#{controleProjeto.objeto.ativo}"/>
+                    <p:outputLabel value=""/>
+                    <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                     actionListener="#{controleProjeto.salvar()}"
+                                     update="formEdicao :formListagem"/> 
+
+                </p:panelGrid>
+
+                <h:panelGroup id="painelColaborador">
+                    <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-13"
+                                 layout="grid" styleClass="ui-panelgrid-blank"
+                                 rendered="#{controleProjeto.editandoColaborador}">
+                        <f:facet name="header">
+                            <p:outputLabel value="Edição de colaborador"/>
+                        </f:facet> 
+                        <p:outputLabel for="txtIDColaborador" value="ID"/>
+                        <p:inputText id="txtIDColaborador" value="#{controleProjeto.colaborador.id}"
+                                     size="5" maxlength="5"/>                          
+                        <p:outputLabel for="cbxUsuario" value="Usuário"/>
+                        <p:selectOneMenu id="cbxUsuario" value="#{controleProjeto.colaborador.usuario}">
+                            <f:selectItem itemLabel="Selecione um registro" noSelectionOption="true"/>
+                            <f:selectItems value="#{controleProjeto.daoUsuario.listaTodos}"
+                                           var="u"
+                                           itemLabel="#{u.nome}"/>
+                            <f:converter converterId="converterUsuario"/>
+                        </p:selectOneMenu>  
+                        <p:outputLabel value="Gestor" for="selectGestor"/>
+                        <p:selectBooleanCheckbox id="selectGestor" value="#{controleProjeto.colaborador.gestor}"/>    
+                        <p:outputLabel for="txtCarga" value="Carga Horária"/>
+                        <p:inputNumber id="txtCarga" value="#{controleProjeto.colaborador.cargaHoraria}"
+                                       size="12" maxlength="12"
+                                       required="true" decimalPlaces="0" thousandSeparator=""/>                                        
+                        <p:outputLabel value=""/>
+                        <p:commandButton value="Salvar colaborador" icon="ui-icon-disk"
+                                         actionListener="#{controleProjeto.salvarColaborador()}"
+                                         update="@form"
+                                         id="btnSalvarColaborador"/>                         
+                    </p:panelGrid>                
+                </h:panelGroup>
+
+            </div>
+
+
+            <h:panelGroup id="listagemColaborador">
+                <h:panelGroup rendered="#{!controleProjeto.editandoColaborador}">
+                    <p:commandButton value="Novo colaborador" icon="ui-icon-plus"
+                                     actionListener="#{controleProjeto.novoColaborador()}"
+                                     update="listagemColaborador painelColaborador"
+                                     id="btnNovoColaborador"/>                    
+                    <p:dataTable value="#{controleProjeto.objeto.colaboradores}"
+                                 var="col" reflow="true"  rowIndexVar="idx">
+                        <f:facet name="header">
+                            <p:outputLabel value="Colaboradores"/>
+                        </f:facet>
+                        <p:column headerText="Colaborador">
+                            <p:outputLabel value="#{col.usuario.nome}"/>
+                        </p:column>
+                        <p:column headerText="Carga Horária">
+                            <p:outputLabel value="#{col.cargaHoraria}"/>
+                        </p:column>  
+                        <p:column headerText="Gestor">
+                            <p:outputLabel value="#{col.gestor ? 'Sim' : 'Não'}"/>
+                        </p:column>                          
+                        <p:column headerText="Ações">
+                            <div align="center">                                
+                                <p:commandButton icon="ui-icon-pencil"
+                                                 actionListener="#{controleProjeto.alterarColaborador(idx)}"
+                                                 process="@this"
+                                                 update="@form"/>                                
+                                <p:commandButton icon="ui-icon-trash"
+                                                 actionListener="#{controleProjeto.excluirColaborador(idx)}"
+                                                 process="@this" update="@form"/>
+                            </div>
+                        </p:column>                     
+                    </p:dataTable>
+                </h:panelGroup> 
+            </h:panelGroup>
+        </h:panelGroup>
+    </h:form>
+</html>
+
