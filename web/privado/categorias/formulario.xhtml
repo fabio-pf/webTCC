@@ -24,6 +24,10 @@
                     <p:inputText id="txtSigla" value="#{controleCategorias.objeto.sigla}"
                                  size="40" maxlength="40"
                                  placeholder="Obrigatório"/>
+                    <p:outputLabel for="txtCota" value="Cotas"/>
+                    <p:inputText id="txtCota" value="#{controleCategorias.objeto.cota}"
+                                 size="40" maxlength="40"
+                                 placeholder="Obrigatório"/>
 
                     <p:commandButton value="Salvar" icon="ui-icon-disk"
                                      actionListener="#{controleCategorias.salvar()}"

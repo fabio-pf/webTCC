@@ -2,6 +2,7 @@ package br.com.vedoy.dao;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -11,7 +12,7 @@ import javax.persistence.PersistenceContext;
  * @email jorge.bavaresco@passofundo.ifsul.edu.br
  * @organization IFSUL - Campus Passo Fundo
  */
-public class DAOGenerico<T> implements Serializable {
+public abstract class DAOGenerico<T> implements Serializable {
 
     // lista paginada
     private List<T> listaObjetos;
@@ -100,6 +101,7 @@ public class DAOGenerico<T> implements Serializable {
     public void merge(T obj) throws Exception {
         em.merge(obj);
     }
+    
     public void remove(T obj) throws Exception {
         obj = em.merge(obj);
         em.remove(obj);

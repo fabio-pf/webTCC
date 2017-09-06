@@ -7,11 +7,13 @@ package br.com.vedoy.dao;
 
 import br.com.vedoy.modelo.Causas;
 import java.io.Serializable;
+import javax.ejb.Stateful;
 
 /**
  *
  * @author Fabio V
  */
+@Stateful
 public class CausasDAO<T> extends DAOGenerico<Causas> implements Serializable {
 
     public CausasDAO() {

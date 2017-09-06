@@ -7,11 +7,13 @@ package br.com.vedoy.dao;
 
 import br.com.vedoy.modelo.Produtos;
 import java.io.Serializable;
+import javax.ejb.Stateful;
 
 /**
  *
  * @author Fabio V
  */
+@Stateful
 public class ProdutosDAO<T> extends DAOGenerico<Produtos> implements Serializable{
     
     public ProdutosDAO() {
