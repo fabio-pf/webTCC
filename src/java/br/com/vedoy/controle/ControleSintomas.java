@@ -23,37 +23,42 @@ import javax.inject.Named;
 @Stateful
 public class ControleSintomas implements Serializable{
     @EJB
-    private SintomasDAO<Sintomas> dao;
+     private SintomasDAO<Sintomas> dao;
     private Sintomas objeto;
     private Boolean editando;
+    private Boolean novoObjeto;
     
     public ControleSintomas(){        
         editando = false;
+        novoObjeto = false;
     }
     
     public String listar(){
         editando = false;
+        novoObjeto = false;
         return "/privado/sintomas/listar?faces-redirect=true";
     }
     
     public void novo(){
         editando = true;
         objeto = new Sintomas();
+        novoObjeto = true;
     }
     
-    public void alterar(Integer id){
+    public void alterar(String nome){
       try {
-            objeto = dao.getObjectById(id); 
+            objeto = dao.getObjectById(nome); 
             editando = true;
+            novoObjeto = false;
         } catch (Exception e){
             Util.mensagemErro("Erro ao recuperar objeto: "+Util.getMensagemErro(e));            
         }                
         
     }
-        
-    public void excluir(Integer id){
+    
+    public void excluir(String nome){
        try {
-            objeto = dao.getObjectById(id);
+            objeto = dao.getObjectById(nome);
             dao.remove(objeto);
             Util.mensagemInformacao("Objeto removido com sucesso!");            
         } catch(Exception e){
@@ -62,10 +67,10 @@ public class ControleSintomas implements Serializable{
     }
     
     public void salvar(){
-        try {
-            if(objeto.getId_sint()== 0 ){
-                dao.persist(objeto);
-            } else {
+        try {                  
+            if (novoObjeto){                
+                dao.persist(objeto);            
+            } else {                
                 dao.merge(objeto);
             }
             Util.mensagemInformacao("Sucesso ao persistir objeto");  
@@ -98,6 +103,16 @@ public class ControleSintomas implements Serializable{
     public void setEditando(Boolean editando) {
         this.editando = editando;
     }
+
+    public Boolean getNovoObjeto() {
+        return novoObjeto;
+    }
+
+    public void setNovoObjeto(Boolean novoObjeto) {
+        this.novoObjeto = novoObjeto;
+    }
     
     
+    
+   
 }

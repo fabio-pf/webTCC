@@ -14,18 +14,21 @@
                     <b:navbarLinks>
                         <b:navLink value="Inicio" outcome="inicio" />
                         <b:dropMenu value="Cadastros">
-                            <b:navCommandLink value="Usuarios"
+                            <b:navCommandLink value="Categorias"
                                               ajax="false"
-                                              action="#{controleUsuario.listar()}"/>
-                            <b:navCommandLink value="Projetos"
+                                              action="#{controleCategorias.listar()}"/>
+                            <b:navCommandLink value="Causas"
                                               ajax="false"
-                                              action="#{controleProjeto.listar()}"/>                                                              
-                            <b:navCommandLink value="Setores"
+                                              action="#{controleCausas.listar()}"/>                                                              
+                            <b:navCommandLink value="Sintomas"
                                               ajax="false"
-                                              action="#{controleSetor.listar()}"/>
+                                              action="#{controleSintomas.listar()}"/>
                             <b:navCommandLink value="Permissões"
                                               ajax="false"
-                                              action="#{controlePermissao.listar()}"/>  
+                                              action="#{controleTipoUsuarios.listar()}"/>
+                            <b:navCommandLink value="Produtos"
+                                              ajax="false"
+                                              action="#{controleProdutos.listar()}"/>
                         </b:dropMenu>
                     </b:navbarLinks>
                 </b:navBar>

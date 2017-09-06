@@ -12,18 +12,18 @@
                           is-isolation-level-guaranteed="true" lazy-connection-association="false" 
                           lazy-connection-enlistment="false" match-connections="false" 
                           max-connection-usage-count="0" max-pool-size="32" max-wait-time-in-millis="60000" 
-                          name="TA-2017-1-6M1_Pool" non-transactional-connections="false" 
+                          name="OSPool" non-transactional-connections="false" 
                           pool-resize-quantity="2" res-type="javax.sql.DataSource" 
                           statement-timeout-in-seconds="-1" steady-pool-size="8" 
                           validate-atmost-once-period-in-seconds="0" wrap-jdbc-objects="false">
         <property name="serverName" value="localhost"/>
         <property name="portNumber" value="5432"/>
-        <property name="databaseName" value="TA-2017-1-6M1"/>
+        <property name="databaseName" value="OST"/>
         <property name="User" value="postgres"/>
         <property name="Password" value="postgres"/>
-        <property name="URL" value="jdbc:postgresql://localhost:5432/TA-2017-1-6M1"/>
+        <property name="URL" value="jdbc:postgresql://localhost:5432/OST"/>
         <property name="driverClass" value="org.postgresql.Driver"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="jdbc/ta-2017-1-6m1" object-type="user" 
-                   pool-name="TA-2017-1-6M1_Pool"/>
+    <jdbc-resource enabled="true" jndi-name="jdbc/os" object-type="user" 
+                   pool-name="OSPool"/>
 </resources>

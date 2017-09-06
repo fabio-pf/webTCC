@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/templates/template.xhtml">
-        <ui:define name="titulo">Manutenção de Setores</ui:define>
+        <ui:define name="titulo">Manutenção de Tipo de Usuarios</ui:define>
         <ui:define name="conteudo">
             <h:form id="formListagem">
                 <h:panelGroup rendered="#{!controleCategorias.editando}">
@@ -14,17 +14,16 @@
                     <p:commandButton value="Novo" icon="ui-icon-plus"
                                      actionListener="#{controleCategorias.novo()}"
                                      update=":formEdicao :formListagem"/>                    
-
+                    
 
                     <p:dataTable value="#{controleCategorias.dao.listaObjetos}" var="obj"
-                                 reflow="true" id="listagem">
+                                 reflow="true" id="listagem" >
                         <f:facet name="header">                            
                             <div class="ui-fluid" >
                                 <p:panelGrid columns="7" styleClass="ui-panelgrid-blank" layout="grid"
                                             columnClasses="col-md-1,col-md-2,col-md-1,col-md-3,col-md-1,col-md-2,col-md-2">
                                     <p:outputLabel value="Ordem:" />
-                                    <p:selectOneMenu value="#{controleCategorias.dao.ordem}">
-                                        <f:selectItem itemLabel="ID" itemValue="id"/>
+                                    <p:selectOneMenu value="#{controleCategorias.dao.ordem}">                                        
                                         <f:selectItem itemLabel="Nome" itemValue="nome"/>                            
                                         <p:ajax update="listagem"/>
                                     </p:selectOneMenu>
@@ -39,7 +38,7 @@
                             </div>                                            
                         </f:facet>
                         <f:facet name="footer"> 
-                            <p:outputLabel value="#{controleCategorias.dao.mensagemNavegacao} &nbsp; &nbsp;"/>                            
+                            <p:outputLabel value="#{controleCategorias.dao.mensagemNavegacao} &nbsp; &nbsp;"/>
                             <p:commandButton action="#{controleCategorias.dao.primeiro()}"
                                              icon="ui-icon-seek-first" title="Primeiro" update="listagem"/>
                             <p:commandButton action="#{controleCategorias.dao.anterior()}"
@@ -49,23 +48,26 @@
                             <p:commandButton action="#{controleCategorias.dao.ultimo()}"
                                              icon="ui-icon-seek-end" title="Ultimo" update="listagem"/>
                         </f:facet>
-                        <p:column headerText="ID">
-                            <p:outputLabel value="#{obj.id}"/>
-                        </p:column>
                         <p:column headerText="Nome">
                             <p:outputLabel value="#{obj.nome}"/>
                         </p:column>
+                        <p:column headerText="Descrição">
+                            <p:outputLabel value="#{obj.descricao}"/>
+                        </p:column>
                         <p:column headerText="Sigla">
                             <p:outputLabel value="#{obj.sigla}"/>
-                        </p:column> 
+                        </p:column>
+                        <p:column headerText="Cotas">
+                            <p:outputLabel value="#{obj.cota}" />
+                        </p:column>
                         <p:column headerText="Ações">
                             <div align="center">
                                 <p:commandButton icon="ui-icon-pencil"
-                                                 actionListener="#{controleCategorias.alterar(obj.id)}"
+                                                 actionListener="#{controleCategorias.alterar(obj.nome)}"
                                                  process="@form"
                                                  update=":formEdicao formListagem"/>
                                 <p:commandButton icon="ui-icon-trash"
-                                                 actionListener="#{controleCategorias.excluir(obj.id)}"
+                                                 actionListener="#{controleCategorias.excluir(obj.nome)}"
                                                  process="@form" update=":formListagem"/>
                             </div>
                         </p:column>
