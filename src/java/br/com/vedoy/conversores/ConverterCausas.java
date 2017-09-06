@@ -6,7 +6,6 @@
 package br.com.vedoy.conversores;
 
 import br.com.vedoy.modelo.Causas;
-import br.com.vedoy.modelo.Cotas;
 import java.io.Serializable;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;

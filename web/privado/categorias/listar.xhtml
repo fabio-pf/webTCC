@@ -6,47 +6,47 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/templates/template.xhtml">
-        <ui:define name="titulo">Manutenção de Causas</ui:define>
+        <ui:define name="titulo">Manutenção de Setores</ui:define>
         <ui:define name="conteudo">
             <h:form id="formListagem">
-                <h:panelGroup rendered="#{!controleCausas.editando}">
+                <h:panelGroup rendered="#{!controleCategorias.editando}">
                     <p:messages/>
                     <p:commandButton value="Novo" icon="ui-icon-plus"
-                                     actionListener="#{controleCausas.novo()}"
+                                     actionListener="#{controleCategorias.novo()}"
                                      update=":formEdicao :formListagem"/>                    
 
 
-                    <p:dataTable value="#{controleCausas.dao.listaObjetos}" var="obj"
+                    <p:dataTable value="#{controleCategorias.dao.listaObjetos}" var="obj"
                                  reflow="true" id="listagem">
                         <f:facet name="header">                            
                             <div class="ui-fluid" >
                                 <p:panelGrid columns="7" styleClass="ui-panelgrid-blank" layout="grid"
                                             columnClasses="col-md-1,col-md-2,col-md-1,col-md-3,col-md-1,col-md-2,col-md-2">
                                     <p:outputLabel value="Ordem:" />
-                                    <p:selectOneMenu value="#{controleCausas.dao.ordem}">
+                                    <p:selectOneMenu value="#{controleCategorias.dao.ordem}">
                                         <f:selectItem itemLabel="ID" itemValue="id"/>
                                         <f:selectItem itemLabel="Nome" itemValue="nome"/>                            
                                         <p:ajax update="listagem"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Filtro: "/>
-                                    <p:inputText value="#{controleCausas.dao.filtro}"/>                                                            
+                                    <p:inputText value="#{controleCategorias.dao.filtro}"/>                                                            
                                     <p:commandButton value="Filtrar" update="listagem" icon="ui-icon-search"/>
                                     <p:outputLabel value="Máximo de objetos:"/>
-                                    <p:inputText value="#{controleCausas.dao.maximoObjetos}" size="5">
+                                    <p:inputText value="#{controleCategorias.dao.maximoObjetos}" size="5">
                                         <p:ajax event="keyup" update="listagem"/>
                                     </p:inputText>
                                 </p:panelGrid>
                             </div>                                            
                         </f:facet>
                         <f:facet name="footer"> 
-                            <p:outputLabel value="#{controleCausas.dao.mensagemNavegacao} &nbsp; &nbsp;"/>                            
-                            <p:commandButton action="#{controleCausas.dao.primeiro()}"
+                            <p:outputLabel value="#{controleCategorias.dao.mensagemNavegacao} &nbsp; &nbsp;"/>                            
+                            <p:commandButton action="#{controleCategorias.dao.primeiro()}"
                                              icon="ui-icon-seek-first" title="Primeiro" update="listagem"/>
-                            <p:commandButton action="#{controleCausas.dao.anterior()}"
+                            <p:commandButton action="#{controleCategorias.dao.anterior()}"
                                              icon="ui-icon-seek-prev" title="Anterior" update="listagem"/>
-                            <p:commandButton action="#{controleCausas.dao.proximo()}"
+                            <p:commandButton action="#{controleCategorias.dao.proximo()}"
                                              icon="ui-icon-seek-next" title="Próximo" update="listagem"/>
-                            <p:commandButton action="#{controleCausas.dao.ultimo()}"
+                            <p:commandButton action="#{controleCategorias.dao.ultimo()}"
                                              icon="ui-icon-seek-end" title="Ultimo" update="listagem"/>
                         </f:facet>
                         <p:column headerText="ID">
@@ -54,17 +54,19 @@
                         </p:column>
                         <p:column headerText="Nome">
                             <p:outputLabel value="#{obj.nome}"/>
-                        </p:column>      
+                        </p:column>
+                        <p:column headerText="Sigla">
+                            <p:outputLabel value="#{obj.sigla}"/>
+                        </p:column> 
                         <p:column headerText="Ações">
                             <div align="center">
                                 <p:commandButton icon="ui-icon-pencil"
-                                                 actionListener="#{controleCausas.alterar(obj.id)}"
+                                                 actionListener="#{controleCategorias.alterar(obj.id)}"
                                                  process="@form"
                                                  update=":formEdicao formListagem"/>
                                 <p:commandButton icon="ui-icon-trash"
-                                                 actionListener="#{controleSetor.excluir(obj.id)}"
-                                                 process="@form" update=":formListagem"
-                                                 rendered="#{p:ifGranted('ADMINISTRADOR')}"/>
+                                                 actionListener="#{controleCategorias.excluir(obj.id)}"
+                                                 process="@form" update=":formListagem"/>
                             </div>
                         </p:column>
                     </p:dataTable>

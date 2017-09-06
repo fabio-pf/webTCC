@@ -2,7 +2,6 @@ package br.com.vedoy.dao;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -18,7 +17,7 @@ public class DAOGenerico<T> implements Serializable {
     private List<T> listaObjetos;
     // lista com todos os objetos
     private List<T> listaTodos;
-    @PersistenceContext(unitName = "TA-2017-1-6M1-WebPU")
+    @PersistenceContext(unitName = "OSWebPU")
     protected EntityManager em;
     protected Class classePersistente;
     protected String ordem = "id";
@@ -101,7 +100,6 @@ public class DAOGenerico<T> implements Serializable {
     public void merge(T obj) throws Exception {
         em.merge(obj);
     }
-    @RolesAllowed("ADMINISTRADOR")
     public void remove(T obj) throws Exception {
         obj = em.merge(obj);
         em.remove(obj);

@@ -5,7 +5,6 @@
  */
 package br.com.vedoy.conversores;
 
-import br.com.vedoy.modelo.Cotas;
 import br.com.vedoy.modelo.Produtos;
 import java.io.Serializable;
 import javax.faces.component.UIComponent;

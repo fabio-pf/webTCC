@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="formEdicao">
+        <h:panelGroup rendered="#{controleCategorias.editando}">
+            <div class="ui-fluid">
+                <p:messages/>
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-13"
+                             layout="grid" styleClass="ui-panelgrid-blank">
+                    <f:facet name="header">
+                        <p:outputLabel value="Edição de Setores"/>
+                    </f:facet>
+                    <p:outputLabel for="txtID" value="ID"/>
+                    <p:inputText id="txtID" value="#{controleCategorias.objeto.id}" readonly="true"
+                                 size="10"/>
+                    <p:outputLabel for="txtNome" value="Nome"/>
+                    <p:inputText id="txtNome" value="#{controleCategorias.objeto.nome}"
+                                 size="40" maxlength="40"
+                                 placeholder="Obrigatório"/>
+                    <p:outputLabel for="txtSigla" value="Sigla"/>
+                    <p:inputText id="txtSigla" value="#{controleCategorias.objeto.sigla}"
+                                 size="40" maxlength="40"
+                                 placeholder="Obrigatório"/>
+
+                    <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                     actionListener="#{controleCategorias.salvar()}"
+                                     update="formEdicao :formListagem"/> 
+
+                </p:panelGrid>
+            </div>
+        </h:panelGroup>
+    </h:form>
+</html>
+
