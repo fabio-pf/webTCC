@@ -26,31 +26,36 @@ public class ControleProdutos implements Serializable{
     private ProdutosDAO<Produtos> dao;
     private Produtos objeto;
     private Boolean editando;
+    private Boolean novoObjeto;
     
     public ControleProdutos(){        
         editando = false;
+        novoObjeto = false;
     }
     
     public String listar(){
         editando = false;
+        novoObjeto = false;
         return "/privado/produtos/listar?faces-redirect=true";
     }
     
     public void novo(){
         editando = true;
         objeto = new Produtos();
+        novoObjeto = true;
     }
     
     public void alterar(Integer id){
       try {
             objeto = dao.getObjectById(id); 
             editando = true;
+            novoObjeto = false;
         } catch (Exception e){
             Util.mensagemErro("Erro ao recuperar objeto: "+Util.getMensagemErro(e));            
         }                
         
     }
-        
+    
     public void excluir(Integer id){
        try {
             objeto = dao.getObjectById(id);
@@ -62,10 +67,10 @@ public class ControleProdutos implements Serializable{
     }
     
     public void salvar(){
-        try {
-            if(objeto.getId_prod()== 0 ){
-                dao.persist(objeto);
-            } else {
+        try {                  
+            if (novoObjeto){                
+                dao.persist(objeto);            
+            } else {                
                 dao.merge(objeto);
             }
             Util.mensagemInformacao("Sucesso ao persistir objeto");  
@@ -98,5 +103,14 @@ public class ControleProdutos implements Serializable{
     public void setEditando(Boolean editando) {
         this.editando = editando;
     }
-    
+
+    public Boolean getNovoObjeto() {
+        return novoObjeto;
+    }
+
+    public void setNovoObjeto(Boolean novoObjeto) {
+        this.novoObjeto = novoObjeto;
+    }
+
+  
 }

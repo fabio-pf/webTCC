@@ -63,11 +63,11 @@
                         <p:column headerText="Ações">
                             <div align="center">
                                 <p:commandButton icon="ui-icon-pencil"
-                                                 actionListener="#{controleCategorias.alterar(obj.nome)}"
+                                                 actionListener="#{controleCategorias.alterar(obj.id)}"
                                                  process="@form"
                                                  update=":formEdicao formListagem"/>
                                 <p:commandButton icon="ui-icon-trash"
-                                                 actionListener="#{controleCategorias.excluir(obj.nome)}"
+                                                 actionListener="#{controleCategorias.excluir(obj.id)}"
                                                  process="@form" update=":formListagem"/>
                             </div>
                         </p:column>

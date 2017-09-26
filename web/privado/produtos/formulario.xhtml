@@ -5,32 +5,32 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:form id="formEdicao" >
-        <h:panelGroup rendered="#{controleCausas.editando}">
+        <h:panelGroup rendered="#{controleProdutos.editando}">
             <div class="ui-fluid">
                 <p:messages/>
                 <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-13"
                              layout="grid" styleClass="ui-panelgrid-blank">
                     <f:facet name="header">
-                        <p:outputLabel value="Edição de Setores"/>
+                        <p:outputLabel value="Edição de Produtos"/>
                     </f:facet>
                     <p:outputLabel for="txtID" value="ID"/>
-                    <p:inputText id="txtID" value="#{controleCausas.objeto.id_causa}" readonly="true"
+                    <p:inputText id="txtID" value="#{controleProdutos.objeto.id_prod}" readonly="true"
                                  size="10"/>
                     <p:outputLabel for="txtNome" value="Nome"/>
-                    <p:inputText id="txtNome" value="#{controleCausas.objeto.nome}"
+                    <p:inputText id="txtNome" value="#{controleProdutos.objeto.nome}"
                                  size="40" maxlength="40"
                                  placeholder="Obrigatório"/>
                     <p:outputLabel for="txtSigla" value="Descrição"/>
-                    <p:inputText id="txtSigla" value="#{controleCausas.objeto.descricao}"
+                    <p:inputText id="txtSigla" value="#{controleProdutos.objeto.descricao}"
                                  size="40" maxlength="40"
                                  placeholder="Obrigatório"/>
                     <p:outputLabel for="txtCota" value="Sigla"/>
-                    <p:inputText id="txtCota" value="#{controleCausas.objeto.sigla}"
+                    <p:inputText id="txtCota" value="#{controleProdutos.objeto.sigla}"
                                  size="40" maxlength="40"
                                  placeholder="Obrigatório"/>
 
                     <p:commandButton value="Salvar" icon="ui-icon-disk"
-                                     actionListener="#{controleCausas.salvar()}"
+                                     actionListener="#{controleProdutos.salvar()}"
                                      update="formEdicao :formListagem"/> 
 
                 </p:panelGrid>

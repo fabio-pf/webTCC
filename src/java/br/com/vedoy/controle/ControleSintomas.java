@@ -45,9 +45,9 @@ public class ControleSintomas implements Serializable{
         novoObjeto = true;
     }
     
-    public void alterar(String nome){
+    public void alterar(Integer id){
       try {
-            objeto = dao.getObjectById(nome); 
+            objeto = dao.getObjectById(id); 
             editando = true;
             novoObjeto = false;
         } catch (Exception e){
@@ -56,9 +56,9 @@ public class ControleSintomas implements Serializable{
         
     }
     
-    public void excluir(String nome){
+    public void excluir(Integer id){
        try {
-            objeto = dao.getObjectById(nome);
+            objeto = dao.getObjectById(id);
             dao.remove(objeto);
             Util.mensagemInformacao("Objeto removido com sucesso!");            
         } catch(Exception e){

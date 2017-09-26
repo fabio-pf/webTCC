@@ -42,12 +42,14 @@ public class ControleCategorias implements Serializable{
     public void novo() {
         editando = true;
         objeto = new Categorias();
+        novoObjeto = true;
     }
 
     public void alterar(Integer id) {
         try {
             objeto = dao.getObjectById(id);
             editando = true;
+            novoObjeto = false;
         } catch (Exception e) {
             Util.mensagemErro("Erro ao recuperar objeto: " + Util.getMensagemErro(e));
         }
@@ -65,17 +67,17 @@ public class ControleCategorias implements Serializable{
     }
 
     public void salvar() {
-        try {
-            if (objeto.getId() == null) {
-                dao.persist(objeto);
-            } else {
+         try {                  
+            if (novoObjeto){                
+                dao.persist(objeto);            
+            } else {                
                 dao.merge(objeto);
             }
-            Util.mensagemInformacao("Sucesso ao persistir objeto");
-            editando = false;
-        } catch (Exception e) {
-            Util.mensagemErro("Erro ao persistir: " + Util.getMensagemErro(e));
-        }
+            Util.mensagemInformacao("Sucesso ao persistir objeto");  
+            editando = false;        
+        } catch(Exception e){
+            Util.mensagemErro("Erro ao persistir: "+Util.getMensagemErro(e));            
+        }      
     }
     
     public Categorias getObjeto() {
