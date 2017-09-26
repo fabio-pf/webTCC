@@ -18,28 +18,33 @@ import javax.inject.Named;
 @SessionScoped
 public class ControleTipoUsuario implements Serializable {
     @EJB
-    private TipoUsuarioDAO<Tipo_Usuario> dao;
+     private TipoUsuarioDAO<Tipo_Usuario> dao;
     private Tipo_Usuario objeto;
     private Boolean editando;
+    private Boolean novoObjeto;
     
     public ControleTipoUsuario(){        
         editando = false;
+        novoObjeto = false;
     }
     
     public String listar(){
         editando = false;
+        novoObjeto = false;
         return "/privado/tipo_usuario/listar?faces-redirect=true";
     }
     
     public void novo(){
         editando = true;
         objeto = new Tipo_Usuario();
+        novoObjeto = true;
     }
     
     public void alterar(String nome){
       try {
             objeto = dao.getObjectById(nome); 
             editando = true;
+            novoObjeto = false;
         } catch (Exception e){
             Util.mensagemErro("Erro ao recuperar objeto: "+Util.getMensagemErro(e));            
         }                
@@ -57,8 +62,12 @@ public class ControleTipoUsuario implements Serializable {
     }
     
     public void salvar(){
-        try {            
-            dao.persist(objeto);            
+        try {                  
+            if (novoObjeto){                
+                dao.persist(objeto);            
+            } else {                
+                dao.merge(objeto);
+            }
             Util.mensagemInformacao("Sucesso ao persistir objeto");  
             editando = false;        
         } catch(Exception e){
@@ -89,6 +98,14 @@ public class ControleTipoUsuario implements Serializable {
     public void setEditando(Boolean editando) {
         this.editando = editando;
     }
-    
+
+    public Boolean getNovoObjeto() {
+        return novoObjeto;
+    }
+
+    public void setNovoObjeto(Boolean novoObjeto) {
+        this.novoObjeto = novoObjeto;
+    }
+
     
 }

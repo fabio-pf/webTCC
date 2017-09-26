@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:form id="formEdicao">
-        <h:panelGroup rendered="#{controlePermissao.editando}">
+        <h:panelGroup rendered="#{controleTipoUsuarios.editando}">
             <div class="ui-fluid">
                 <p:messages/>
                 <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-13"
@@ -14,16 +14,16 @@
                         <p:outputLabel value="Edição de Permissões"/>
                     </f:facet>     
                     <p:outputLabel for="txtNome" value="Nome"/>
-                    <p:inputText id="txtNome" value="#{controlePermissao.objeto.nome}"
+                    <p:inputText id="txtNome" value="#{controleTipoUsuarios.objeto.nome}"
                                  size="30" maxlength="30"
                                  placeholder="Obrigatório"/>  
                   <p:outputLabel for="txtDescricao" value="Descrição"/>
-                  <p:inputText id="txtDescricao" value="#{controlePermissao.objeto.descricao}"
+                  <p:inputText id="txtDescricao" value="#{controleTipoUsuarios.objeto.descricao}"
                                  size="30" maxlength="30"
                                  placeholder="Obrigatório"/>                     
 
                     <p:commandButton value="Salvar" icon="ui-icon-disk"
-                                     actionListener="#{controlePermissao.salvar()}"
+                                     actionListener="#{controleTipoUsuarios.salvar()}"
                                      update="formEdicao :formListagem"/> 
 
                 </p:panelGrid>

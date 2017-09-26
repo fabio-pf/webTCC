@@ -9,43 +9,43 @@
         <ui:define name="titulo">Manutenção de Permissões</ui:define>
         <ui:define name="conteudo">
             <h:form id="formListagem">
-                <h:panelGroup rendered="#{!controlePermissao.editando}">
+                <h:panelGroup rendered="#{!controleTipoUsuarios.editando}">
                     <p:messages/>
                     <p:commandButton value="Novo" icon="ui-icon-plus"
-                                     actionListener="#{controlePermissao.novo()}"
+                                     actionListener="#{controleTipoUsuarios.novo()}"
                                      update=":formEdicao :formListagem"/>                    
                     
 
-                    <p:dataTable value="#{controlePermissao.dao.listaObjetos}" var="obj"
+                    <p:dataTable value="#{controleTipoUsuarios.dao.listaObjetos}" var="obj"
                                  reflow="true" id="listagem" >
                         <f:facet name="header">                            
                             <div class="ui-fluid" >
                                 <p:panelGrid columns="7" styleClass="ui-panelgrid-blank" layout="grid"
                                             columnClasses="col-md-1,col-md-2,col-md-1,col-md-3,col-md-1,col-md-2,col-md-2">
                                     <p:outputLabel value="Ordem:" />
-                                    <p:selectOneMenu value="#{controlePermissao.dao.ordem}">                                        
+                                    <p:selectOneMenu value="#{controleTipoUsuarios.dao.ordem}">                                        
                                         <f:selectItem itemLabel="Nome" itemValue="nome"/>                            
                                         <p:ajax update="listagem"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Filtro: "/>
-                                    <p:inputText value="#{controlePermissao.dao.filtro}"/>                                                            
+                                    <p:inputText value="#{controleTipoUsuarios.dao.filtro}"/>                                                            
                                     <p:commandButton value="Filtrar" update="listagem" icon="ui-icon-search"/>
                                     <p:outputLabel value="Máximo de objetos:"/>
-                                    <p:inputText value="#{controlePermissao.dao.maximoObjetos}" size="5">
+                                    <p:inputText value="#{controleTipoUsuarios.dao.maximoObjetos}" size="5">
                                         <p:ajax event="keyup" update="listagem"/>
                                     </p:inputText>
                                 </p:panelGrid>
                             </div>                                            
                         </f:facet>
                         <f:facet name="footer"> 
-                            <p:outputLabel value="#{controlePermissao.dao.mensagemNavegacao} &nbsp; &nbsp;"/>
-                            <p:commandButton action="#{controlePermissao.dao.primeiro()}"
+                            <p:outputLabel value="#{controleTipoUsuarios.dao.mensagemNavegacao} &nbsp; &nbsp;"/>
+                            <p:commandButton action="#{controleTipoUsuarios.dao.primeiro()}"
                                              icon="ui-icon-seek-first" title="Primeiro" update="listagem"/>
-                            <p:commandButton action="#{controlePermissao.dao.anterior()}"
+                            <p:commandButton action="#{controleTipoUsuarios.dao.anterior()}"
                                              icon="ui-icon-seek-prev" title="Anterior" update="listagem"/>
-                            <p:commandButton action="#{controlePermissao.dao.proximo()}"
+                            <p:commandButton action="#{controleTipoUsuarios.dao.proximo()}"
                                              icon="ui-icon-seek-next" title="Próximo" update="listagem"/>
-                            <p:commandButton action="#{controlePermissao.dao.ultimo()}"
+                            <p:commandButton action="#{controleTipoUsuarios.dao.ultimo()}"
                                              icon="ui-icon-seek-end" title="Ultimo" update="listagem"/>
                         </f:facet>
                         <p:column headerText="Nome">
@@ -57,18 +57,18 @@
                         <p:column headerText="Ações">
                             <div align="center">
                                 <p:commandButton icon="ui-icon-pencil"
-                                                 actionListener="#{controlePermissao.alterar(obj.nome)}"
+                                                 actionListener="#{controleTipoUsuarios.alterar(obj.nome)}"
                                                  process="@form"
                                                  update=":formEdicao formListagem"/>
                                 <p:commandButton icon="ui-icon-trash"
-                                                 actionListener="#{controlePermissao.excluir(obj.nome)}"
+                                                 actionListener="#{controleTipoUsuarios.excluir(obj.nome)}"
                                                  process="@form" update=":formListagem"/>
                             </div>
                         </p:column>
                     </p:dataTable>
                 </h:panelGroup>
             </h:form>
-            <ui:include src="/privado/permissao/formulario.xhtml"/>
+            <ui:include src="/privado/tipo_usuario/formulario.xhtml"/>
         </ui:define>
     </ui:composition>
 </html>
