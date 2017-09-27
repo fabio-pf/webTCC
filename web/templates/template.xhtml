@@ -10,7 +10,7 @@
     <h:body>
         <b:container>
             <h:form id="formMenu">
-                <b:navBar brand="IFSUL">
+                <b:navBar brand="Empresa">
                     <b:navbarLinks>
                         <b:navLink value="Inicio" outcome="inicio" />
                         <b:dropMenu value="Cadastros">
@@ -29,17 +29,23 @@
                             <b:navCommandLink value="Produtos"
                                               ajax="false"
                                               action="#{controleProdutos.listar()}"/>
-                            <b:dropMenu value="Usuarios">
+                            <b:dropMenu value="Usuarios" >
                                 <b:navCommandLink value="Tecnicos" 
                                                   ajax="false"
                                                   action="#{controleTecnicos.listar()}"/>
+                                <b:navCommandLink value="Clientes" 
+                                                  ajax="false"
+                                                  action="#{controleClientes.listar()}"/>
+                                <b:navCommandLink value="Atendente" 
+                                                  ajax="false"
+                                                  action="#{controleAtendentes.listar()}"/>
                             </b:dropMenu>
                         </b:dropMenu>
                     </b:navbarLinks>
                 </b:navBar>
             </h:form>
             <ui:insert name="conteudo">
-                inicio2
+               
             </ui:insert>
         </b:container>
     </h:body>
