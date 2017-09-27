@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:form id="formEdicao">
-        <h:panelGroup rendered="#{controleUsuario.editando}">
+        <h:panelGroup rendered="#{controleTecnicos.editando}">
             <div class="ui-fluid">
                 <p:messages/>
                 <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-20"
@@ -14,22 +14,53 @@
                         <p:outputLabel value="Edição de Usuários"/>
                     </f:facet>
                     <p:outputLabel for="txtID" value="ID"/>
-                    <p:inputText id="txtID" value="#{controleUsuario.objeto.id}" readonly="true"
+                    <p:inputText id="txtID" value="#{controleTecnicos.objeto.id}" readonly="true"
                                  size="10"/>
+                    <p:outputLabel value="Nome de usuário" for="txtUsuario"/>
+                    <p:inputText id="txtUsuario" value="#{controleTecnicos.objeto.usuario}"
+                                 size="30" maxlength="30" placeholder="Obrigatório"/>
+                    <p:outputLabel value="Senha" for="txtSenha"/>
+                    <p:password id="txtSenha" value="#{controleTecnicos.objeto.senha}"
+                                redisplay="true" size="20" maxlength="20"
+                                placeholder="Obrigatório"/>
                     <p:outputLabel for="txtNome" value="Nome"/>
-                    <p:inputText id="txtNome" value="#{controleUsuario.objeto.nome}"
+                    <p:inputText id="txtNome" value="#{controleTecnicos.objeto.nome}"
                                  size="40" maxlength="40"
                                  required="true"
                                  requiredMessage="O nome deve ser informado"
                                  placeholder="Obrigatório"/>
+                    <p:outputLabel for="txtEndereco" value="Endereço"/>
+                    <p:inputText id="txtEndereco" value="#{controleTecnicos.objeto.endereco}"
+                                 size="200" maxlength="200"
+                                 required="true"
+                                 requiredMessage="O endereço deve ser informado"
+                                 placeholder="Obrigatório"/>
+                    <p:outputLabel for="txtCidade" value="Cidade"/>
+                    <p:inputText id="txtCidade" value="#{controleTecnicos.objeto.cidade}"
+                                 size="50" maxlength="50"
+                                 required="true"
+                                 requiredMessage="A cidade deve ser informada"
+                                 placeholder="Obrigatório"/>
+                    <p:outputLabel for="txtCPF" value="CPF"/>
+                    <p:inputText id="txtCPF" value="#{controleTecnicos.objeto.cpf}"
+                                 size="11" maxlength="11"
+                                 required="true"
+                                 requiredMessage="O cpf deve ser informado"
+                                 placeholder="Obrigatório/Só numeros"/>
+                    <p:outputLabel for="txtRG" value="RG"/>
+                    <p:inputText id="txtRG" value="#{controleTecnicos.objeto.rg}"
+                                 size="11" maxlength="11"
+                                 required="true"
+                                 requiredMessage="O rg deve ser informado"
+                                 placeholder="Obrigatório/Só numeros"/>
                     <p:outputLabel for="txtEmail" value="Email"/>
-                    <p:inputText id="txtEmail" value="#{controleUsuario.objeto.email}"
+                    <p:inputText id="txtEmail" value="#{controleTecnicos.objeto.email}"
                                  size="50" maxlength="50"
                                  required="true"
                                  requiredMessage="O email deve ser informado"
                                  placeholder="Obrigatório"/>
                     <p:outputLabel for="txtNascimento" value="Nascimento"/>
-                    <p:calendar id="txtNascimento" value="#{controleUsuario.objeto.nascimento}"
+                    <p:calendar id="txtNascimento" value="#{controleTecnicos.objeto.nascimento}"
                                 mask="true" pattern="dd/MM/yyyy"
                                 placeholder="Obrigatório"
                                 required="true"
@@ -37,45 +68,49 @@
                                 navigator="true">
                         <f:converter converterId="converterCalendar"/>
                     </p:calendar>
-                    <p:outputLabel value="Nome de usuário" for="txtUsuario"/>
-                    <p:inputText id="txtUsuario" value="#{controleUsuario.objeto.usuario}"
-                                 size="30" maxlength="30" placeholder="Obrigatório"/>
-                    <p:outputLabel value="Senha" for="txtSenha"/>
-                    <p:password id="txtSenha" value="#{controleUsuario.objeto.senha}"
-                                redisplay="true" size="20" maxlength="20"
-                                placeholder="Obrigatório"/>
-                    <p:outputLabel value="Setor" for="selectSetor"/>
-                    <p:selectOneMenu id="selectSetor" value="#{controleUsuario.objeto.setor}">
-                        <f:converter converterId="converterSetor"/>
+                    <p:outputLabel for="txtFixo" value="Telefone Fixo"/>
+                    <p:inputText id="txtFixo" value="#{controleTecnicos.objeto.t_fixo}"
+                                 size="11" maxlength="11"
+                                 placeholder="Não Obrigatório"/>
+                    <p:outputLabel for="txtCelular" value="Telefone Celular"/>
+                    <p:inputText id="txtCelular" value="#{controleTecnicos.objeto.t_celular}"
+                                 size="11" maxlength="11"
+                                 placeholder="Obrigatório"
+                                 required="true"
+                                 requiredMessage="O numero celular deve ser informado"
+                                 placeholder="Não Obrigatório"/>
+                    <p:outputLabel value="Categoria" for="selectCategoria"/>
+                    <p:selectOneMenu id="selectCategoria" value="#{controleTecnicos.objeto.categoria}">
+                        <f:converter converterId="converterCategorias"/>
                         <f:selectItem itemLabel="Selecione um registro"
                                       noSelectionOption="true"/>
-                        <f:selectItems value="#{controleUsuario.daoSetor.listaTodos}"
+                        <f:selectItems value="#{controleTecnicos.daoCategorias.listaTodos}"
                                        var="s" itemLabel="#{s.nome}"/>
                     </p:selectOneMenu>
 
                     <p:commandButton value="Salvar" icon="ui-icon-disk"
-                                     actionListener="#{controleUsuario.salvar()}"
+                                     actionListener="#{controleTecnicos.salvar()}"
                                      update="formEdicao :formListagem"/>
                 </p:panelGrid>
 
                 <h:panelGroup id="painelPermissao">
                     <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-20"
                                  layout="grid" styleClass="ui-panelgrid-blank" 
-                                 rendered="#{controleUsuario.editandoPermissao}">
+                                 rendered="#{controleTecnicos.editandoPermissao}">
                         <f:facet name="header">
                             <p:outputLabel value="Edição de permissão do usuário"/>
                         </f:facet>
                         <p:outputLabel value="Permissão"/>
-                        <p:selectOneMenu id="cbxPermissao" value="#{controleUsuario.permissao}">
+                        <p:selectOneMenu id="cbxPermissao" value="#{controleTecnicos.permissao}">
                             <f:selectItem itemLabel="Selecione um registro"
                                           noSelectionOption="true"/>
-                            <f:selectItems value="#{controleUsuario.daoPermissao.listaTodos}"
+                            <f:selectItems value="#{controleTecnicos.daoPermissao.listaTodos}"
                                            var="p" itemLabel="#{p.nome}"/>
                             <f:converter converterId="converterPermissao"/>
                         </p:selectOneMenu>
                         <p:outputLabel value=""/>
                         <p:commandButton id="btnSalvarPermissao" icon="ui-icon-disk"
-                                         actionListener="#{controleUsuario.salvarPermissao()}"
+                                         actionListener="#{controleTecnicos.salvarPermissao()}"
                                          process="cbxPermissao btnSalvarPermissao"
                                          update="painelPermissao listagemPermissao"/>                                         
                     </p:panelGrid>                
@@ -83,13 +118,13 @@
                 </h:panelGroup>
             </div>
             <h:panelGroup id="listagemPermissao">
-                <h:panelGroup rendered="#{!controleUsuario.editandoPermissao}">
+                <h:panelGroup rendered="#{!controleTecnicos.editandoPermissao}">
                     <p:commandButton value="Nova permissão" icon="ui-icon-plus"
-                                     actionListener="#{controleUsuario.novaPermissao()}"
+                                     actionListener="#{controleTecnicos.novaPermissao()}"
                                      update="painelPermissao listagemPermissao"
                                      process="@this"
                                      id="btnNovaPermissao"/>
-                    <p:dataTable value="#{controleUsuario.objeto.permissoes}"
+                    <p:dataTable value="#{controleTecnicos.objeto.tipos_usuario}"
                                  var="per" reflow="true">
                         <f:facet name="header">
                             <p:outputLabel value="Permissões do Usuário"/>
@@ -103,7 +138,7 @@
                         <p:column headerText="Ações">
                             <div align="center">
                                 <p:commandButton icon="ui-icon-trash"
-                                                 actionListener="#{controleUsuario.removerPermissao(per)}"
+                                                 actionListener="#{controleTecnicos.removerPermissao(per)}"
                                                  process="@this" update="@form"/>
                             </div>
                         </p:column>
@@ -113,4 +148,5 @@
         </h:panelGroup>
     </h:form>
 </html>
+
 

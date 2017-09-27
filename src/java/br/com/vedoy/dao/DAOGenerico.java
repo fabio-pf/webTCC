@@ -2,7 +2,6 @@ package br.com.vedoy.dao;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 

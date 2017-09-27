@@ -29,6 +29,11 @@
                             <b:navCommandLink value="Produtos"
                                               ajax="false"
                                               action="#{controleProdutos.listar()}"/>
+                            <b:dropMenu value="Usuarios">
+                                <b:navCommandLink value="Tecnicos" 
+                                                  ajax="false"
+                                                  action="#{controleTecnicos.listar()}"/>
+                            </b:dropMenu>
                         </b:dropMenu>
                     </b:navbarLinks>
                 </b:navBar>
