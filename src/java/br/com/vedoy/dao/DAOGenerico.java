@@ -11,7 +11,7 @@ import javax.persistence.PersistenceContext;
  * @email jorge.bavaresco@passofundo.ifsul.edu.br
  * @organization IFSUL - Campus Passo Fundo
  */
-public abstract class DAOGenerico<T> implements Serializable {
+public class DAOGenerico<T> implements Serializable {
 
     // lista paginada
     private List<T> listaObjetos;
@@ -92,6 +92,8 @@ public abstract class DAOGenerico<T> implements Serializable {
         String jpql = "from " + classePersistente.getSimpleName();
         return em.createQuery(jpql).getResultList();
     }
+    
+    
 
     public void persist(T obj) throws Exception {
         em.persist(obj);

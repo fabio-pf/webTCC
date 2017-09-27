@@ -5,14 +5,14 @@
  */
 package br.com.vedoy.controle;
 
+import br.com.vedoy.dao.AtendenteDAO;
 import br.com.vedoy.dao.CategoriasDAO;
-import br.com.vedoy.dao.TecnicoDAO;
+import br.com.vedoy.dao.ClienteDAO;
 import br.com.vedoy.dao.TipoUsuarioDAO;
-import br.com.vedoy.dao.UsuarioDAO;
+import br.com.vedoy.modelo.Atendente;
 import br.com.vedoy.modelo.Categorias;
-import br.com.vedoy.modelo.Tecnicos;
+import br.com.vedoy.modelo.Clientes;
 import br.com.vedoy.modelo.Tipo_Usuario;
-import br.com.vedoy.modelo.Usuarios;
 import br.com.vedoy.util.Util;
 import java.io.Serializable;
 import javax.ejb.EJB;
@@ -23,13 +23,12 @@ import javax.inject.Named;
  *
  * @author Fabio Vedoy
  */
-@Named(value = "controleTecnicos")
+@Named(value = "controleAtendentes")
 @SessionScoped
-public class ControleTecnicos implements Serializable{
+public class ControleAtendente implements Serializable{
     @EJB
-    private TecnicoDAO<Tecnicos> dao;
-    private Tecnicos objeto;
-    private Usuarios objetoU;
+    private AtendenteDAO<Atendente> dao;
+    private Atendente objeto;
     private Boolean editando;
     @EJB
     private CategoriasDAO<Categorias> daoCategorias;
@@ -38,9 +37,7 @@ public class ControleTecnicos implements Serializable{
     private Tipo_Usuario permissao;
     private Boolean editandoPermissao;
     
-    
-    
-    public ControleTecnicos(){
+    public ControleAtendente(){
         editando = false;
         editandoPermissao = false;
     }
@@ -48,13 +45,13 @@ public class ControleTecnicos implements Serializable{
     public String listar(){
         editando = false;
         editandoPermissao = false;
-         return "/privado/tecnico/listar?faces-redirect=true";
+         return "/privado/atendente/listar?faces-redirect=true";
     }
     
     public void novo(){
         editando = true;
         editandoPermissao=false;
-        objeto = new Tecnicos(){};
+        objeto = new Atendente(){};
     }
     
     public void alterar(Integer id){
@@ -112,19 +109,19 @@ public class ControleTecnicos implements Serializable{
         Util.mensagemInformacao("Permissao removida com sucesso!!");
      }
 
-    public TecnicoDAO<Tecnicos> getDao() {
+    public AtendenteDAO<Atendente> getDao() {
         return dao;
     }
 
-    public void setDao(TecnicoDAO<Tecnicos> dao) {
+    public void setDao(AtendenteDAO<Atendente> dao) {
         this.dao = dao;
     }
 
-    public Tecnicos getObjeto() {
+    public Atendente getObjeto() {
         return objeto;
     }
 
-    public void setObjeto(Tecnicos objeto) {
+    public void setObjeto(Atendente objeto) {
         this.objeto = objeto;
     }
 
@@ -134,6 +131,14 @@ public class ControleTecnicos implements Serializable{
 
     public void setEditando(Boolean editando) {
         this.editando = editando;
+    }
+
+    public CategoriasDAO<Categorias> getDaoCategorias() {
+        return daoCategorias;
+    }
+
+    public void setDaoCategorias(CategoriasDAO<Categorias> daoCategorias) {
+        this.daoCategorias = daoCategorias;
     }
 
     public TipoUsuarioDAO<Tipo_Usuario> getDaoPermissao() {
@@ -158,14 +163,6 @@ public class ControleTecnicos implements Serializable{
 
     public void setEditandoPermissao(Boolean editandoPermissao) {
         this.editandoPermissao = editandoPermissao;
-    }
-
-    public CategoriasDAO<Categorias> getDaoCategorias() {
-        return daoCategorias;
-    }
-
-    public void setDaoCategorias(CategoriasDAO<Categorias> daoCategorias) {
-        this.daoCategorias = daoCategorias;
     }
 
     
