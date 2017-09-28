@@ -4,6 +4,7 @@ package br.com.vedoy.dao;
 import br.com.vedoy.modelo.Clientes;
 import br.com.vedoy.modelo.Usuarios;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.Stateful;
 
 
@@ -28,5 +29,12 @@ public class ClienteDAO<T> extends DAOGenerico<Clientes> implements Serializable
         obj.getTipos_usuario().size(); // inicializa a lista de permissões do usuário
         return obj;
     }
+    
+    
+    
+//    public List<T> getListaTodos() {
+//        String jpql = "from " + classePersistente.getSimpleName();
+//        return em.createQuery(jpql).getResultList();
+//    }
     
 }

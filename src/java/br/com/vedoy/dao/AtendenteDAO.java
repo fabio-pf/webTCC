@@ -12,7 +12,7 @@ public class AtendenteDAO<T> extends DAOGenerico<Atendente> implements Serializa
 
     public AtendenteDAO(){
         super();        
-        super.classePersistente = Atendente.class;
+        super.classePersistente = Usuarios.class;
     }
     
     public Usuarios localizaPorNomeUsuario(String usuario) {

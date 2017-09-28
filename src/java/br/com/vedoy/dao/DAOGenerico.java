@@ -14,9 +14,9 @@ import javax.persistence.PersistenceContext;
 public class DAOGenerico<T> implements Serializable {
 
     // lista paginada
-    private List<T> listaObjetos;
+    protected List<T> listaObjetos;
     // lista com todos os objetos
-    private List<T> listaTodos;
+    protected List<T> listaTodos;
     @PersistenceContext(unitName = "OSWebPU")
     protected EntityManager em;
     protected Class classePersistente;
@@ -47,7 +47,7 @@ public class DAOGenerico<T> implements Serializable {
         }
         jpql += where;
         jpql += " order by "+ordem;
-        totalObjetos = em.createQuery("select id from " + classePersistente.getSimpleName() +
+        totalObjetos = em.createQuery("select id from " + classePersistente.getSuperclass().getSuperclass().getSimpleName() +
                 where + " order by " + ordem).getResultList().size();
         return em.createQuery(jpql).setFirstResult(posicaoAtual).
                 setMaxResults(maximoObjetos).getResultList();        
@@ -88,7 +88,7 @@ public class DAOGenerico<T> implements Serializable {
                 totalObjetos + " registros";
     }
 
-    public List<T> getListaTodos() {
+     public List<T> getListaTodos() {
         String jpql = "from " + classePersistente.getSimpleName();
         return em.createQuery(jpql).getResultList();
     }

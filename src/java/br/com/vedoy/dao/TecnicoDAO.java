@@ -5,7 +5,6 @@ import br.com.vedoy.modelo.Tecnicos;
 import br.com.vedoy.modelo.Usuarios;
 import java.io.Serializable;
 import javax.ejb.Stateful;
-import java.util.List;
 
 
 @Stateful
@@ -13,7 +12,7 @@ public class TecnicoDAO<T> extends DAOGenerico<Tecnicos> implements Serializable
 
     public TecnicoDAO(){
         super();
-        super.setClassePersistente(Tecnicos.class);
+        super.setClassePersistente(Usuarios.class);
         super.setOrdem("nome");
     }
     
