@@ -25,51 +25,55 @@ import org.hibernate.validator.constraints.NotBlank;
 @Named(value = "controleLogin")
 @SessionScoped
 public class ControleLogin implements Serializable {
-
+    
     private Usuarios usuarioAutenticado;
     @EJB
     private UsuarioDAO<Usuarios> dao;
-    @NotNull(message = "O nome de usuario nao pode ser nulo")
-    @NotBlank(message = "O nome de usuario nao pode ser em branco")
+    @NotNull(message = "O nome de usuário não pode ser nulo")
+    @NotBlank(message = "O nome de usuário deve ser informado")
     private String usuario;
-    @NotNull(message = "A senha de usuario nao pode ser nulo")
-    @NotBlank(message = "A senha de usuario nao pode ser em branco")
+    @NotNull(message = "A senha não pode ser nula")
+    @NotBlank(message = "A senha deve ser informada")    
     private String senha;
-
-    public ControleLogin() {
+    
+    public ControleLogin(){
+        
     }
-
-    public String paginaLogin() {
+    
+    public String paginaLogin(){
         return "/login?faces-redirect=true";
     }
-
-    public String efetuarLogin() {
+    
+    public String efetuarLogin(){
         try {
-            HttpServletRequest request = (HttpServletRequest) FacesContext.
-                    getCurrentInstance().getExternalContext().getRequest();
+            HttpServletRequest request = (HttpServletRequest) 
+                    FacesContext.getCurrentInstance().getExternalContext().getRequest();
             request.login(this.usuario, this.senha);
-            if (request.getUserPrincipal() != null) {
-                usuarioAutenticado = dao.localizaPorNomeUsuario(request.getUserPrincipal().getName());
+            if (request.getUserPrincipal() != null){
+                usuarioAutenticado = 
+                        dao.localizaPorNomeUsuario(request.getUserPrincipal().getName());
                 Util.mensagemInformacao("Login realizado com sucesso!");
                 usuario = "";
                 senha = "";
             }
             return "/index";
-        } catch (Exception e) {
-            Util.mensagemErro("Usuário ou senha inválidos!!! " + Util.getMensagemErro(e));
-            return "/login";
+        } catch (Exception e){
+            Util.mensagemErro("Usuario ou senha inválidos! "+
+                    Util.getMensagemErro(e));
+            return "/login.xhtml";            
         }
     }
-
-    public String efetuarLogout() {
+    
+    public String efetuarLogout(){
         try {
             usuarioAutenticado = null;
-            HttpServletRequest request = (HttpServletRequest) FacesContext.
-                    getCurrentInstance().getExternalContext().getRequest();
+            HttpServletRequest request = (HttpServletRequest)
+                    FacesContext.getCurrentInstance().getExternalContext().getRequest();
             request.logout();
+            Util.mensagemInformacao("Logout efetuado com sucesso!");
             return "/index";
-        } catch (ServletException e) {
-            Util.mensagemErro("Erro: " + Util.getMensagemErro(e));
+        } catch (Exception e){
+            Util.mensagemErro("Erro: "+Util.getMensagemErro(e));
             return "/index";
         }
     }
@@ -105,5 +109,6 @@ public class ControleLogin implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
     
 }

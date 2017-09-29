@@ -14,9 +14,10 @@ public class UsuarioDAO<T> extends DAOGenerico<Usuarios> implements Serializable
         super.classePersistente = Usuarios.class;
     }
     
-    public Usuarios localizaPorNomeUsuario(String usuario) {
+    public Usuarios localizaPorNomeUsuario(String usuarios) {
         Usuarios obj = (Usuarios)em.createQuery("from Usuarios where upper(usuarios) = :usuarios").
-                setParameter("usuarios", usuario.toUpperCase()).getSingleResult();
+                setParameter("usuarios", usuarios.toUpperCase()).getSingleResult();
+        System.out.println("  "+obj);
         obj.getTipos_usuario().size();
         return obj;
     }

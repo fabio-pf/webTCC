@@ -54,7 +54,7 @@ public class ControleTecnicos implements Serializable{
     public void novo(){
         editando = true;
         editandoPermissao=false;
-        objeto = new Tecnicos(){};
+        objeto = new Tecnicos();
     }
     
     public void alterar(Integer id){

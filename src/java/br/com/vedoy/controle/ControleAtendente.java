@@ -51,7 +51,7 @@ public class ControleAtendente implements Serializable{
     public void novo(){
         editando = true;
         editandoPermissao=false;
-        objeto = new Atendente(){};
+        objeto = new Atendente();
     }
     
     public void alterar(Integer id){

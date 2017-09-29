@@ -49,7 +49,7 @@ public class ControleClientes implements Serializable{
     public void novo(){
         editando = true;
         editandoPermissao=false;
-        objeto = new Clientes(){};
+        objeto = new Clientes();
     }
     
     public void alterar(Integer id){

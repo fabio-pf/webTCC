@@ -22,7 +22,7 @@
                     <p:outputLabel value="Senha" for="txtSenha"/>
                     <p:password id="txtSenha" value="#{controleTecnicos.objeto.senha}"
                                 redisplay="true" size="20" maxlength="20"
-                                placeholder="Obrigatório"/>
+                                placeholder="Obrigatório" feedback="true"/>
                     <p:outputLabel for="txtNome" value="Nome"/>
                     <p:inputText id="txtNome" value="#{controleTecnicos.objeto.nome}"
                                  size="40" maxlength="40"
@@ -34,7 +34,7 @@
                                  size="100" maxlength="100"
                                  required="true"
                                  requiredMessage="O endereço deve ser informado"
-                                 placeholder="Obrigatório"/>
+                                 placeholder="Obrigatório" />
                     <p:outputLabel for="txtCidade" value="Cidade"/>
                     <p:inputText id="txtCidade" value="#{controleTecnicos.objeto.cidade}"
                                  size="50" maxlength="50"
@@ -42,11 +42,12 @@
                                  requiredMessage="A cidade deve ser informada"
                                  placeholder="Obrigatório"/>
                     <p:outputLabel for="txtCPF" value="CPF"/>
-                    <p:inputText id="txtCPF" value="#{controleTecnicos.objeto.cpf}"
+                    <p:inputMask id="txtCPF" value="#{controleTecnicos.objeto.cpf}"
                                  size="11" maxlength="11"
                                  required="true"
                                  requiredMessage="O cpf deve ser informado"
-                                 placeholder="Obrigatório/Só numeros"/>
+                                 placeholder="Obrigatório"
+                                 mask="999.999.999-99"/>
                     <p:outputLabel for="txtRG" value="RG"/>
                     <p:inputText id="txtRG" value="#{controleTecnicos.objeto.rg}"
                                  size="11" maxlength="11"
@@ -58,7 +59,8 @@
                                  size="50" maxlength="50"
                                  required="true"
                                  requiredMessage="O email deve ser informado"
-                                 placeholder="Obrigatório"/>
+                                 placeholder="Obrigatório"
+                                 />
                     <p:outputLabel for="txtNascimento" value="Nascimento"/>
                     <p:calendar id="txtNascimento" value="#{controleTecnicos.objeto.nascimento}"
                                 mask="true" pattern="dd/MM/yyyy"
@@ -69,15 +71,17 @@
                         <f:converter converterId="converterCalendar"/>
                     </p:calendar>
                     <p:outputLabel for="txtFixo" value="Telefone Fixo"/>
-                    <p:inputText id="txtFixo" value="#{controleTecnicos.objeto.t_fixo}"
+                    <p:inputMask id="txtFixo" value="#{controleTecnicos.objeto.t_fixo}"
                                  size="11" maxlength="11"
-                                 placeholder="Não Obrigatório"/>
+                                 placeholder="Não Obrigatório"
+                                 mask="(99)9999-9999"/>
                     <p:outputLabel for="txtCelular" value="Telefone Celular"/>
-                    <p:inputText id="txtCelular" value="#{controleTecnicos.objeto.t_celular}"
+                    <p:inputMask id="txtCelular" value="#{controleTecnicos.objeto.t_celular}"
                                  size="11" maxlength="11"
                                  required="true"
                                  requiredMessage="O numero celular deve ser informado"
-                                 placeholder="Obrigatório"/>
+                                 placeholder="Obrigatório"
+                                 mask="(99)99999-9999"/>
                     <p:outputLabel value="Categoria" for="selectCategoria"/>
                     <p:selectOneMenu id="selectCategoria" value="#{controleTecnicos.objeto.categoria}">
                         <f:converter converterId="converterCategorias"/>

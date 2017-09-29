@@ -12,7 +12,7 @@ public class TecnicoDAO<T> extends DAOGenerico<Tecnicos> implements Serializable
 
     public TecnicoDAO(){
         super();
-        super.setClassePersistente(Usuarios.class);
+        super.setClassePersistente(Tecnicos.class);
         super.setOrdem("nome");
     }
     

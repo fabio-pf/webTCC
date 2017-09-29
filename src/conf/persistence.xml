@@ -10,13 +10,12 @@
     <class>br.com.vedoy.modelo.Categorias</class>
     <class>br.com.vedoy.modelo.Causas</class>
     <class>br.com.vedoy.modelo.Clientes</class>
-    <class>br.com.vedoy.modelo.Cotas</class>
     <class>br.com.vedoy.modelo.Ordem_Servicos</class>
     <class>br.com.vedoy.modelo.Produtos</class>
     <class>br.com.vedoy.modelo.Sintomas</class>
     <class>br.com.vedoy.modelo.Tipo_Usuario</class>
     <class>br.com.vedoy.modelo.Tecnicos</class>
-    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    
     <properties>
       <property name="hibernate.hbm2ddl.auto" value="update"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>

@@ -13,7 +13,8 @@
                 <b:navBar brand="Empresa">
                     <b:navbarLinks>
                         <b:navLink value="Inicio" outcome="inicio" />
-                        <b:dropMenu value="Cadastros">
+                        <b:dropMenu value="Cadastros"
+                                    rendered="#{controleLogin.usuarioAutenticado != null}">
                             <b:navCommandLink value="Categorias"
                                               ajax="false"
                                               action="#{controleCategorias.listar()}"/>
@@ -40,6 +41,18 @@
                                                   ajax="false"
                                                   action="#{controleAtendentes.listar()}"/>
                             </b:dropMenu>
+                        </b:dropMenu>
+                        <b:dropMenu value="Usuário: #{controleLogin.usuarioAutenticado != null ?
+                                                      controleLogin.usuarioAutenticado.nome :
+                                                      ' Não autenticado'}">
+                            <b:navCommandLink value="Efetuar login"
+                                              ajax="false"
+                                              action="#{controleLogin.paginaLogin()}"
+                                              rendered="#{controleLogin.usuarioAutenticado == null}"/>
+                            <b:navCommandLink value="Efetuar logout"
+                                              ajax="false"
+                                              action="#{controleLogin.efetuarLogout()}"
+                                              rendered="#{controleLogin.usuarioAutenticado != null}"/>
                         </b:dropMenu>
                     </b:navbarLinks>
                 </b:navBar>
