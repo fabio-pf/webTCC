@@ -11,7 +11,7 @@
     <context-param>
         <param-name>BootsFaces_THEME</param-name>
         <param-value>flatly</param-value>
-    </context-param>       
+    </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -66,7 +66,7 @@
             <description/>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
-    </security-constraint>    
+    </security-constraint>
     <!-- configuração de log-in basico -->
     <!--login-config>
     <auth-method>BASIC</auth-method>

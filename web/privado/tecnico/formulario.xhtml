@@ -42,12 +42,11 @@
                                  requiredMessage="A cidade deve ser informada"
                                  placeholder="Obrigatório"/>
                     <p:outputLabel for="txtCPF" value="CPF"/>
-                    <p:inputMask id="txtCPF" value="#{controleTecnicos.objeto.cpf}"
-                                 size="11" maxlength="11"
+                    <p:inputText id="txtCPF" value="#{controleTecnicos.objeto.cpf}"
+                                 size="14" maxlength="14"
                                  required="true"
                                  requiredMessage="O cpf deve ser informado"
-                                 placeholder="Obrigatório"
-                                 mask="999.999.999-99"/>
+                                 placeholder="Obrigatório"/>
                     <p:outputLabel for="txtRG" value="RG"/>
                     <p:inputText id="txtRG" value="#{controleTecnicos.objeto.rg}"
                                  size="11" maxlength="11"
@@ -72,16 +71,15 @@
                     </p:calendar>
                     <p:outputLabel for="txtFixo" value="Telefone Fixo"/>
                     <p:inputMask id="txtFixo" value="#{controleTecnicos.objeto.t_fixo}"
-                                 size="11" maxlength="11"
+                                 size="14" maxlength="14"
                                  placeholder="Não Obrigatório"
                                  mask="(99)9999-9999"/>
                     <p:outputLabel for="txtCelular" value="Telefone Celular"/>
-                    <p:inputMask id="txtCelular" value="#{controleTecnicos.objeto.t_celular}"
-                                 size="11" maxlength="11"
+                    <p:inputText id="txtCelular" value="#{controleTecnicos.objeto.t_celular}"
+                                 size="14" maxlength="14"
                                  required="true"
                                  requiredMessage="O numero celular deve ser informado"
-                                 placeholder="Obrigatório"
-                                 mask="(99)99999-9999"/>
+                                 placeholder="Obrigatório"/>
                     <p:outputLabel value="Categoria" for="selectCategoria"/>
                     <p:selectOneMenu id="selectCategoria" value="#{controleTecnicos.objeto.categoria}">
                         <f:converter converterId="converterCategorias"/>

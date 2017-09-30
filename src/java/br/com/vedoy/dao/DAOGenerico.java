@@ -47,7 +47,7 @@ public class DAOGenerico<T> implements Serializable {
         }
         jpql += where;
         jpql += " order by "+ordem;
-        totalObjetos = em.createQuery("select id from " + classePersistente.getSuperclass().getSuperclass().getSimpleName() +
+        totalObjetos = em.createQuery("select id from " + classePersistente.getSimpleName() +
                 where + " order by " + ordem).getResultList().size();
         return em.createQuery(jpql).setFirstResult(posicaoAtual).
                 setMaxResults(maximoObjetos).getResultList();        
@@ -88,7 +88,7 @@ public class DAOGenerico<T> implements Serializable {
                 totalObjetos + " registros";
     }
 
-     public List<T> getListaTodos() {
+    public List<T> getListaTodos() {
         String jpql = "from " + classePersistente.getSimpleName();
         return em.createQuery(jpql).getResultList();
     }

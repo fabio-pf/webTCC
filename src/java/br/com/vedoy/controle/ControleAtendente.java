@@ -7,11 +7,9 @@ package br.com.vedoy.controle;
 
 import br.com.vedoy.dao.AtendenteDAO;
 import br.com.vedoy.dao.CategoriasDAO;
-import br.com.vedoy.dao.ClienteDAO;
 import br.com.vedoy.dao.TipoUsuarioDAO;
 import br.com.vedoy.modelo.Atendente;
 import br.com.vedoy.modelo.Categorias;
-import br.com.vedoy.modelo.Clientes;
 import br.com.vedoy.modelo.Tipo_Usuario;
 import br.com.vedoy.util.Util;
 import java.io.Serializable;
