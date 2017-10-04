@@ -9,6 +9,12 @@
     <role-name>ADMINISTRADOR</role-name>
     <group-name>ADMINISTRADOR</group-name>
   </security-role-mapping>
+  <security-role-mapping>
+    <role-name>CLIENTE</role-name>
+  </security-role-mapping>
+  <security-role-mapping>
+    <role-name>ATENDENTE</role-name>
+  </security-role-mapping>
   <ejb-ref>
     <ejb-ref-name>ejb_ref1</ejb-ref-name>
   </ejb-ref>

@@ -20,7 +20,7 @@ public class DAOGenerico<T> implements Serializable {
     @PersistenceContext(unitName = "OSWebPU")
     protected EntityManager em;
     protected Class classePersistente;
-    protected String ordem = "id";
+    protected String ordem = "";
     protected String filtro = "";
     protected Integer maximoObjetos = 2;
     protected Integer posicaoAtual = 0;
@@ -47,8 +47,9 @@ public class DAOGenerico<T> implements Serializable {
         }
         jpql += where;
         jpql += " order by "+ordem;
-        totalObjetos = em.createQuery("select id from " + classePersistente.getSimpleName() +
+        totalObjetos = em.createQuery("select nome from " + classePersistente.getSimpleName() +
                 where + " order by " + ordem).getResultList().size();
+        System.out.println("total de obj: "+totalObjetos + "JPQL " +jpql);
         return em.createQuery(jpql).setFirstResult(posicaoAtual).
                 setMaxResults(maximoObjetos).getResultList();        
     }

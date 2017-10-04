@@ -1,6 +1,7 @@
 
 package br.com.vedoy.dao;
 
+import br.com.vedoy.modelo.Pessoas;
 import br.com.vedoy.modelo.Usuarios;
 import java.io.Serializable;
 import java.util.List;
@@ -8,28 +9,30 @@ import javax.ejb.Stateful;
 
 
 @Stateful
-public class UsuarioDAO<T> extends DAOGenerico<Usuarios> implements Serializable {
+public class PessoaDAO<T> extends DAOGenerico<Pessoas> implements Serializable {
 
-    public UsuarioDAO(){
+    public PessoaDAO(){
         super();        
-        super.classePersistente = Usuarios.class;
+        super.classePersistente = Pessoas.class;
+        ordem = "nome";
     }
     
     public Usuarios localizaPorNomeUsuario(String usuario) {
-        Usuarios obj = (Usuarios)em.createQuery("from Usuarios where usuario = :nome").
+        Pessoas obj = (Pessoas)em.createQuery("from Pessoas where usuario = :nome").
                 setParameter("nome", usuario).getSingleResult();
+        System.out.println("objeto " +obj);
         return obj;
     }
     
     @Override
-    public Usuarios getObjectById(Integer id) throws Exception {
-        Usuarios obj = (Usuarios) em.find(classePersistente, id);
+    public Pessoas getObjectById(Integer id) throws Exception {
+        Pessoas obj = (Pessoas) em.find(classePersistente, id);
         obj.getTipos_usuario().size(); // inicializa a lista de permissões do usuário
         return obj;
     }
     
     @Override
-    public List<Usuarios> getListaObjetos() {
+    public List<Pessoas> getListaObjetos() {
         String jpql = "from " + classePersistente.getSimpleName();
         String where = "";
         // limpando o filtro contra injeção de SQL

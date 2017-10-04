@@ -13,7 +13,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;

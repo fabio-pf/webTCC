@@ -39,13 +39,13 @@ public class ControleUsuarios implements Serializable{
     public String listar(){
         editando = false;
         editandoPermissao = false;
-         return "/privado/usuario/listar?faces-redirect=true";
+         return "/privado/usuarios/listar?faces-redirect=true";
     }
     
     public void novo(){
         editando = true;
         editandoPermissao=false;
-        objeto = new Usuarios() {};
+        objeto = new Usuarios();
     }
     
     public void alterar(Integer id){

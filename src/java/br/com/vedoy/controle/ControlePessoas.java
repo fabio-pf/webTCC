@@ -5,12 +5,12 @@
  */
 package br.com.vedoy.controle;
 
-import br.com.vedoy.dao.AdministradorDAO;
 import br.com.vedoy.dao.CategoriasDAO;
+import br.com.vedoy.dao.PessoaDAO;
 import br.com.vedoy.dao.TipoUsuarioDAO;
-import br.com.vedoy.modelo.Administrador;
 import br.com.vedoy.modelo.Categorias;
 import br.com.vedoy.modelo.Tipo_Usuario;
+import br.com.vedoy.modelo.Pessoas;
 import br.com.vedoy.util.Util;
 import java.io.Serializable;
 import javax.ejb.EJB;
@@ -21,21 +21,21 @@ import javax.inject.Named;
  *
  * @author Fabio Vedoy
  */
-@Named(value = "controleAdministrador")
+@Named(value = "controlePessoas")
 @SessionScoped
-public class ControleAdministrador implements Serializable{
+public class ControlePessoas implements Serializable{
     @EJB
-    private AdministradorDAO<Administrador> dao;
-    private Administrador objeto;
+    private PessoaDAO<Pessoas> dao;
+    private Pessoas objeto;
     private Boolean editando;
-    @EJB
+     @EJB
     private CategoriasDAO<Categorias> daoCategorias;
     @EJB
     private TipoUsuarioDAO<Tipo_Usuario> daoPermissao;
     private Tipo_Usuario permissao;
     private Boolean editandoPermissao;
     
-    public ControleAdministrador(){
+    public ControlePessoas(){
         editando = false;
         editandoPermissao = false;
     }
@@ -43,13 +43,13 @@ public class ControleAdministrador implements Serializable{
     public String listar(){
         editando = false;
         editandoPermissao = false;
-         return "/privado/administrador/listar?faces-redirect=true";
+         return "/privado/pessoas/listar?faces-redirect=true";
     }
     
     public void novo(){
         editando = true;
         editandoPermissao=false;
-        objeto = new Administrador(){};
+        objeto = new Pessoas();
     }
     
     public void alterar(Integer id){
@@ -107,19 +107,19 @@ public class ControleAdministrador implements Serializable{
         Util.mensagemInformacao("Permissao removida com sucesso!!");
      }
 
-    public AdministradorDAO<Administrador> getDao() {
+    public PessoaDAO<Pessoas> getDao() {
         return dao;
     }
 
-    public void setDao(AdministradorDAO<Administrador> dao) {
+    public void setDao(PessoaDAO<Pessoas> dao) {
         this.dao = dao;
     }
 
-    public Administrador getObjeto() {
+    public Pessoas getObjeto() {
         return objeto;
     }
 
-    public void setObjeto(Administrador objeto) {
+    public void setObjeto(Pessoas objeto) {
         this.objeto = objeto;
     }
 
@@ -129,14 +129,6 @@ public class ControleAdministrador implements Serializable{
 
     public void setEditando(Boolean editando) {
         this.editando = editando;
-    }
-
-    public CategoriasDAO<Categorias> getDaoCategorias() {
-        return daoCategorias;
-    }
-
-    public void setDaoCategorias(CategoriasDAO<Categorias> daoCategorias) {
-        this.daoCategorias = daoCategorias;
     }
 
     public TipoUsuarioDAO<Tipo_Usuario> getDaoPermissao() {
@@ -163,5 +155,13 @@ public class ControleAdministrador implements Serializable{
         this.editandoPermissao = editandoPermissao;
     }
 
-    
+    public CategoriasDAO<Categorias> getDaoCategorias() {
+        return daoCategorias;
     }
+
+    public void setDaoCategorias(CategoriasDAO<Categorias> daoCategorias) {
+        this.daoCategorias = daoCategorias;
+    }
+
+    
+}

@@ -30,20 +30,13 @@
                             <b:navCommandLink value="Produtos"
                                               ajax="false"
                                               action="#{controleProdutos.listar()}"/>
-                            <b:dropMenu value="Usuarios" >
-                                <b:navCommandLink value="Tecnicos" 
-                                                  ajax="false"
-                                                  action="#{controleTecnicos.listar()}"/>
-                                <b:navCommandLink value="Clientes" 
-                                                  ajax="false"
-                                                  action="#{controleClientes.listar()}"/>
-                                <b:navCommandLink value="Atendente" 
-                                                  ajax="false"
-                                                  action="#{controleAtendentes.listar()}"/>
-                            </b:dropMenu>
+                            <b:navCommandLink value="Usuarios" 
+                                              ajax="false"
+                                              action="#{controlePessoas.listar()}"/>
                         </b:dropMenu>
+                      
                         <b:dropMenu value="Usuário: #{controleLogin.usuarioAutenticado != null ?
-                                                      controleLogin.usuarioAutenticado.nome :
+                                                      controleLogin.usuarioAutenticado.usuario :
                                                       ' Não autenticado'}">
                             <b:navCommandLink value="Efetuar login"
                                               ajax="false"
@@ -58,7 +51,7 @@
                 </b:navBar>
             </h:form>
             <ui:insert name="conteudo">
-               
+
             </ui:insert>
         </b:container>
     </h:body>

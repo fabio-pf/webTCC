@@ -5,62 +5,64 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:form id="formEdicao">
-        <h:panelGroup rendered="#{controleClientes.editando}">
+        <h:panelGroup rendered="#{controlePessoas.editando}">
             <div class="ui-fluid">
                 <p:messages/>
                 <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-20"
                              layout="grid" styleClass="ui-panelgrid-blank">
                     <f:facet name="header">
-                        <p:outputLabel value="Edição de Clientes"/>
+                        <p:outputLabel value="Edição de Usuários"/>
                     </f:facet>
                     <p:outputLabel for="txtID" value="ID"/>
-                    <p:inputText id="txtID" value="#{controleClientes.objeto.id}" readonly="true"
+                    <p:inputText id="txtID" value="#{controlePessoas.objeto.id}" readonly="true"
                                  size="10"/>
                     <p:outputLabel value="Nome de usuário" for="txtUsuario"/>
-                    <p:inputText id="txtUsuario" value="#{controleClientes.objeto.usuario}"
+                    <p:inputText id="txtUsuario" value="#{controlePessoas.objeto.usuario}"
                                  size="30" maxlength="30" placeholder="Obrigatório"/>
                     <p:outputLabel value="Senha" for="txtSenha"/>
-                    <p:password id="txtSenha" value="#{controleClientes.objeto.senha}"
+                    <p:password id="txtSenha" value="#{controlePessoas.objeto.senha}"
                                 redisplay="true" size="20" maxlength="20"
-                                placeholder="Obrigatório"/>
+                                placeholder="Obrigatório" feedback="true"/>
                     <p:outputLabel for="txtNome" value="Nome"/>
-                    <p:inputText id="txtNome" value="#{controleClientes.objeto.nome}"
+                    <p:inputText id="txtNome" value="#{controlePessoas.objeto.nome}"
                                  size="40" maxlength="40"
                                  required="true"
                                  requiredMessage="O nome deve ser informado"
                                  placeholder="Obrigatório"/>
                     <p:outputLabel for="txtEndereco" value="Endereço"/>
-                    <p:inputText id="txtEndereco" value="#{controleClientes.objeto.endereco}"
+                    <p:inputText id="txtEndereco" value="#{controlePessoas.objeto.endereco}"
                                  size="100" maxlength="100"
                                  required="true"
                                  requiredMessage="O endereço deve ser informado"
-                                 placeholder="Obrigatório"/>
+                                 placeholder="Obrigatório" />
                     <p:outputLabel for="txtCidade" value="Cidade"/>
-                    <p:inputText id="txtCidade" value="#{controleClientes.objeto.cidade}"
+                    <p:inputText id="txtCidade" value="#{controlePessoas.objeto.cidade}"
                                  size="50" maxlength="50"
                                  required="true"
                                  requiredMessage="A cidade deve ser informada"
                                  placeholder="Obrigatório"/>
                     <p:outputLabel for="txtCPF" value="CPF"/>
-                    <p:inputText id="txtCPF" value="#{controleClientes.objeto.cpf}"
-                                 size="11" maxlength="11"
+                    <p:inputMask id="txtCPF" value="#{controlePessoas.objeto.cpf}"
+                                 size="14" maxlength="14"
                                  required="true"
                                  requiredMessage="O cpf deve ser informado"
-                                 placeholder="Obrigatório/Só numeros"/>
+                                 placeholder="Obrigatório"
+                                 mask="999.999.999-99"/>
                     <p:outputLabel for="txtRG" value="RG"/>
-                    <p:inputText id="txtRG" value="#{controleClientes.objeto.rg}"
+                    <p:inputText id="txtRG" value="#{controlePessoas.objeto.rg}"
                                  size="11" maxlength="11"
                                  required="true"
                                  requiredMessage="O rg deve ser informado"
                                  placeholder="Obrigatório/Só numeros"/>
                     <p:outputLabel for="txtEmail" value="Email"/>
-                    <p:inputText id="txtEmail" value="#{controleClientes.objeto.email}"
+                    <p:inputText id="txtEmail" value="#{controlePessoas.objeto.email}"
                                  size="50" maxlength="50"
                                  required="true"
                                  requiredMessage="O email deve ser informado"
-                                 placeholder="Obrigatório"/>
+                                 placeholder="Obrigatório"
+                                 />
                     <p:outputLabel for="txtNascimento" value="Nascimento"/>
-                    <p:calendar id="txtNascimento" value="#{controleClientes.objeto.nascimento}"
+                    <p:calendar id="txtNascimento" value="#{controlePessoas.objeto.nascimento}"
                                 mask="true" pattern="dd/MM/yyyy"
                                 placeholder="Obrigatório"
                                 required="true"
@@ -69,38 +71,57 @@
                         <f:converter converterId="converterCalendar"/>
                     </p:calendar>
                     <p:outputLabel for="txtFixo" value="Telefone Fixo"/>
-                    <p:inputText id="txtFixo" value="#{controleClientes.objeto.t_fixo}"
-                                 size="11" maxlength="11"
-                                 placeholder="Não Obrigatório"/>
+                    <p:inputMask id="txtFixo" value="#{controlePessoas.objeto.t_fixo}"
+                                 size="14" maxlength="14"
+                                 placeholder="Não Obrigatório"
+                                 mask="(99)9999-9999"/>
                     <p:outputLabel for="txtCelular" value="Telefone Celular"/>
-                    <p:inputText id="txtCelular" value="#{controleClientes.objeto.t_celular}"
-                                 size="11" maxlength="11"
+                    <p:inputMask id="txtCelular" value="#{controlePessoas.objeto.t_celular}"
+                                 size="14" maxlength="14"
                                  required="true"
                                  requiredMessage="O numero celular deve ser informado"
-                                 placeholder="Não Obrigatório"/>
+                                 placeholder="Obrigatório"
+                                 mask="(99)9999-9999"/>
+                    <p:outputLabel value="Categoria" for="selectCategoria"/>
+                    <p:selectOneMenu id="selectCategoria" value="#{controlePessoas.objeto.categoria}">
+                        <f:converter converterId="converterCategorias"/>
+                        <f:selectItem itemLabel="Selecione um registro"
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{controlePessoas.daoCategorias.listaTodos}"
+                                       var="s" itemLabel="#{s.nome}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Tipo" for="selectTipo"/>
+                    <p:selectOneMenu id="selectTipo" value="#{controlePessoas.objeto.tipo}">
+                        <f:converter converterId="converterTipoUsuario"/>
+                        <f:selectItem itemLabel="Selecione um registro"
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{controlePessoas.daoPermissao.listaTodos}"
+                                       var="t" itemLabel="#{t.nome}"/>
+                    </p:selectOneMenu>
+
                     <p:commandButton value="Salvar" icon="ui-icon-disk"
-                                     actionListener="#{controleClientes.salvar()}"
+                                     actionListener="#{controlePessoas.salvar()}"
                                      update="formEdicao :formListagem"/>
                 </p:panelGrid>
 
                 <h:panelGroup id="painelPermissao">
                     <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-20"
                                  layout="grid" styleClass="ui-panelgrid-blank" 
-                                 rendered="#{controleClientes.editandoPermissao}">
+                                 rendered="#{controlePessoas.editandoPermissao}">
                         <f:facet name="header">
                             <p:outputLabel value="Edição de permissão do usuário"/>
                         </f:facet>
                         <p:outputLabel value="Permissão"/>
-                        <p:selectOneMenu id="cbxPermissao" value="#{controleClientes.permissao}">
+                        <p:selectOneMenu id="cbxPermissao" value="#{controlePessoas.permissao}">
                             <f:selectItem itemLabel="Selecione um registro"
                                           noSelectionOption="true"/>
-                            <f:selectItems value="#{controleClientes.daoPermissao.listaTodos}"
+                            <f:selectItems value="#{controlePessoas.daoPermissao.listaTodos}"
                                            var="p" itemLabel="#{p.nome}"/>
                             <f:converter converterId="converterTipoUsuario"/>
                         </p:selectOneMenu>
                         <p:outputLabel value=""/>
                         <p:commandButton id="btnSalvarPermissao" icon="ui-icon-disk"
-                                         actionListener="#{controleClientes.salvarPermissao()}"
+                                         actionListener="#{controlePessoas.salvarPermissao()}"
                                          process="cbxPermissao btnSalvarPermissao"
                                          update="painelPermissao listagemPermissao"/>                                         
                     </p:panelGrid>                
@@ -108,13 +129,13 @@
                 </h:panelGroup>
             </div>
             <h:panelGroup id="listagemPermissao">
-                <h:panelGroup rendered="#{!controleClientes.editandoPermissao}">
+                <h:panelGroup rendered="#{!controlePessoas.editandoPermissao}">
                     <p:commandButton value="Nova permissão" icon="ui-icon-plus"
-                                     actionListener="#{controleClientes.novaPermissao()}"
+                                     actionListener="#{controlePessoas.novaPermissao()}"
                                      update="painelPermissao listagemPermissao"
                                      process="@this"
                                      id="btnNovaPermissao"/>
-                    <p:dataTable value="#{controleClientes.objeto.tipos_usuario}"
+                    <p:dataTable value="#{controlePessoas.objeto.tipos_usuario}"
                                  var="per" reflow="true">
                         <f:facet name="header">
                             <p:outputLabel value="Permissões do Usuário"/>
@@ -128,7 +149,7 @@
                         <p:column headerText="Ações">
                             <div align="center">
                                 <p:commandButton icon="ui-icon-trash"
-                                                 actionListener="#{controleClientes.removerPermissao(per)}"
+                                                 actionListener="#{controlePessoas.removerPermissao(per)}"
                                                  process="@this" update="@form"/>
                             </div>
                         </p:column>
