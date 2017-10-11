@@ -11,6 +11,7 @@ import br.com.vedoy.dao.TipoUsuarioDAO;
 import br.com.vedoy.modelo.Categorias;
 import br.com.vedoy.modelo.Tipo_Usuario;
 import br.com.vedoy.modelo.Pessoas;
+import br.com.vedoy.modelo.Usuarios;
 import br.com.vedoy.util.Util;
 import java.io.Serializable;
 import javax.ejb.EJB;
@@ -87,6 +88,7 @@ public class ControlePessoas implements Serializable{
         }
     }
     
+    
     public void novaPermissao(){
         editandoPermissao=true;
         
@@ -106,6 +108,11 @@ public class ControlePessoas implements Serializable{
         objeto.getTipos_usuario().remove(obj);
         Util.mensagemInformacao("Permissao removida com sucesso!!");
      }
+    
+    public void enviaTipo(String tipo) {
+        Util.mensagemInformacao("tipo"  + tipo);
+    }
+   
 
     public PessoaDAO<Pessoas> getDao() {
         return dao;

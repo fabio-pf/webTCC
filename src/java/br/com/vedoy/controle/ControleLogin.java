@@ -9,6 +9,7 @@ import br.com.vedoy.dao.UsuarioDAO;
 import br.com.vedoy.util.Util;
 import br.com.vedoy.modelo.Usuarios;
 import java.io.Serializable;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -24,7 +25,7 @@ import org.hibernate.validator.constraints.NotBlank;
 @Named(value = "controleLogin")
 @SessionScoped
 public class ControleLogin implements Serializable {
-    
+
     private Usuarios usuarioAutenticado;
     @EJB
     private UsuarioDAO<Usuarios> dao;
@@ -32,49 +33,62 @@ public class ControleLogin implements Serializable {
     @NotBlank(message = "O nome de usuário deve ser informado")
     private String usuario;
     @NotNull(message = "A senha não pode ser nula")
-    @NotBlank(message = "A senha deve ser informada")    
+    @NotBlank(message = "A senha deve ser informada")
     private String senha;
-    
-    public ControleLogin(){
-        
+
+    public ControleLogin() {
+
     }
-    
-    public String paginaLogin(){
+
+    public String paginaLogin() {
         return "/login?faces-redirect=true";
     }
-    
-    public String efetuarLogin(){
+
+    public String efetuarLogin() {
         try {
-            HttpServletRequest request = (HttpServletRequest) 
-                    FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             request.login(this.usuario, this.senha);
-            if (request.getUserPrincipal() != null){
-                usuarioAutenticado = 
-                        dao.localizaPorNomeUsuario(request.getUserPrincipal().getName());
+            if (request.getUserPrincipal() != null) {
+                usuarioAutenticado
+                        = dao.localizaPorNomeUsuario(request.getUserPrincipal().getName());
                 Util.mensagemInformacao("Login realizado com sucesso!");
                 usuario = "";
                 senha = "";
             }
             return "/index";
-        } catch (Exception e){
-            Util.mensagemErro("Usuario ou senha inválidos! "+
-                    Util.getMensagemErro(e));
-            return "/login.xhtml";            
+        } catch (Exception e) {
+            Util.mensagemErro("Usuario ou senha inválidos! "
+                    + Util.getMensagemErro(e));
+            return "/login.xhtml";
         }
     }
-    
-    public String efetuarLogout(){
+
+    public String efetuarLogout() {
         try {
             usuarioAutenticado = null;
-            HttpServletRequest request = (HttpServletRequest)
-                    FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
             request.logout();
             Util.mensagemInformacao("Logout efetuado com sucesso!");
             return "/index";
-        } catch (Exception e){
-            Util.mensagemErro("Erro: "+Util.getMensagemErro(e));
+        } catch (Exception e) {
+            Util.mensagemErro("Erro: " + Util.getMensagemErro(e));
             return "/index";
         }
+    }
+
+    public Boolean temPermissoes(List<String> permissoes) {
+        for (String permissao : permissoes) {
+            if (usuarioAutenticado.getTipo().getNome().equals(permissao)) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj); //To change body of generated methods, choose Tools | Templates.
     }
 
     public Usuarios getUsuarioAutenticado() {
@@ -109,5 +123,6 @@ public class ControleLogin implements Serializable {
         this.senha = senha;
     }
 
-    
+   
+
 }

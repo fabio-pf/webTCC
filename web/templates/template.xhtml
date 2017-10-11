@@ -17,22 +17,31 @@
                                     rendered="#{controleLogin.usuarioAutenticado != null}">
                             <b:navCommandLink value="Categorias"
                                               ajax="false"
-                                              action="#{controleCategorias.listar()}"/>
+                                              action="#{controleCategorias.listar()}"
+                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO'])}"/>
                             <b:navCommandLink value="Causas"
                                               ajax="false"
-                                              action="#{controleCausas.listar()}"/>                                                              
+                                              action="#{controleCausas.listar()}"
+                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO'])}" />                                                            
                             <b:navCommandLink value="Sintomas"
                                               ajax="false"
-                                              action="#{controleSintomas.listar()}"/>
+                                              action="#{controleSintomas.listar()}"
+                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO'])}"/>
                             <b:navCommandLink value="Permissões"
                                               ajax="false"
-                                              action="#{controleTipoUsuarios.listar()}"/>
+                                              action="#{controleTipoUsuarios.listar()}"
+                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO'])}"/>
                             <b:navCommandLink value="Produtos"
                                               ajax="false"
-                                              action="#{controleProdutos.listar()}"/>
+                                              action="#{controleProdutos.listar()}"
+                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO', 'ATENDENTE'])}"/>
                             <b:navCommandLink value="Usuarios" 
                                               ajax="false"
-                                              action="#{controlePessoas.listar()}"/>
+                                              action="#{controlePessoas.listar()}"
+                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO'])}"/>
+                             <b:navCommandLink value="OS" 
+                                              ajax="false"
+                                              />
                         </b:dropMenu>
                       
                         <b:dropMenu value="Usuário: #{controleLogin.usuarioAutenticado != null ?
@@ -51,7 +60,7 @@
                 </b:navBar>
             </h:form>
             <ui:insert name="conteudo">
-
+teste
             </ui:insert>
         </b:container>
     </h:body>

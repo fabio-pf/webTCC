@@ -23,7 +23,7 @@ import javax.inject.Named;
 @Stateful
 public class ControleSintomas implements Serializable{
     @EJB
-     private SintomasDAO<Sintomas> dao;
+    private SintomasDAO<Sintomas> dao;
     private Sintomas objeto;
     private Boolean editando;
     private Boolean novoObjeto;

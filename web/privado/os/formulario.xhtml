@@ -1,0 +1,211 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:form id="formEdicao">
+        <h:panelGroup rendered="#{controleOS.editando}">
+            <div class="ui-fluid">
+                <p:messages/>
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-20"
+                             layout="grid" styleClass="ui-panelgrid-blank">
+                    <f:facet name="header">
+                        <p:outputLabel value="Edição de OS"/>
+                    </f:facet>
+                    <p:outputLabel for="txtID" value="ID"/>
+                    <p:inputText id="txtID" value="#{controleOS.objeto.id_os}" readonly="true"
+                                 size="10"/>
+                    <p:outputLabel value="Descrição" for="txtDescricacao"/>
+                    <p:inputTextarea id="txtDescricao" value="#{controleOS.objeto.descricao_servico}"
+                                     placeholder="Obrigatório"/>
+                    <p:outputLabel value="Status" for="selectStatus"/>
+                    <p:selectBooleanCheckbox id="selectStatus" value="#{controleOS.objeto.status}"/>
+                    <p:outputLabel value=""/>
+                    <p:selectOneMenu id="selectPrioridade" value="#{controleOS.objeto.prioridade}" >
+                        <f:selectItem itemLabel="Selecione um registro"
+                                      noSelectionOption="true"/>
+                        <f:selectItem itemLabel="Normal" itemValue='1' />
+                        <f:selectItem itemLabel="Urgente" itemValue='2' />
+                    </p:selectOneMenu>
+                    <p:outputLabel for="txtInicio" value="Inicio"/>
+                    <p:calendar id="txtInicio" value="#{controleOS.objeto.inicio}"
+                                mask="true" pattern="dd/MM/yyyy"
+                                placeholder="Obrigatório"
+                                required="true"
+                                requiredMessage="O inicio deve ser informado"
+                                navigator="true">
+                        <f:converter converterId="converterCalendar"/>
+                    </p:calendar>
+                    <p:outputLabel for="txtFim" value="Fim"/>
+                    <p:calendar id="txtFim" value="#{controleOS.objeto.fim}"
+                                mask="true" pattern="dd/MM/yyyy"
+                                placeholder="Obrigatório"
+                                navigator="true">
+                        <f:converter converterId="converterCalendar"/>
+                    </p:calendar>
+                    <p:outputLabel value="Observações" for="txtObservacao"/>
+                    <p:inputTextarea id="txtObeservacao" value="#{controleOS.objeto.observacoes}"
+                                     placeholder="Obrigatório"/>
+                    <p:outputLabel value="Atendente" for="selectAtendente" id="cb_atendente" />
+                    <p:selectOneMenu id="selectAtendente" value="#{controleOS.objeto.atendente}" >
+                        <f:converter converterId="converterUsuarios"/>
+                        <f:selectItem itemLabel="Selecione um registro"
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{controleOS.daoUsuario.listaTodos}"
+                                       var="t" itemLabel="#{t.id}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Cliente" for="selectCliente" id="cb_cliente" />
+                    <p:selectOneMenu id="selectCliente" value="#{controleOS.objeto.cliente}" >
+                        <f:converter converterId="converterUsuarios"/>
+                        <f:selectItem itemLabel="Selecione um registro"
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{controleOS.daoUsuario.listaTodos}"
+                                       var="t" itemLabel="#{t.id}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Tecnico" for="selectTecnico" id="cb_tecnico" />
+                    <p:selectOneMenu id="selectTecnico" value="#{controleOS.objeto.tecnico}" >
+                        <f:converter converterId="converterUsuarios"/>
+                        <f:selectItem itemLabel="Selecione um registro"
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{controleOS.daoUsuario.listaTodos}"
+                                       var="t" itemLabel="#{t.id}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Produto" for="selectProduto" id="cb_produto" />
+                    <p:selectOneMenu id="selectProduto" value="#{controleOS.objeto.produto}" >
+                        <f:converter converterId="converterProdutos"/>
+                        <f:selectItem itemLabel="Selecione um registro"
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{controleOS.daoProdutos.listaTodos}"
+                                       var="t" itemLabel="#{t.id_prod}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Causa Principal" for="selectCausa" id="cb_causa" />
+                    <p:selectOneMenu id="selectCausa" value="#{controleOS.objeto.causaPrincipal}" >
+                        <f:converter converterId="converterCausas"/>
+                        <f:selectItem itemLabel="Selecione um registro"
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{controleOS.daoCausa.listaTodos}"
+                                       var="t" itemLabel="#{t.id_causa}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Sintoma" for="selectSintoma" id="cb_sintoma" />
+                    <p:selectOneMenu id="selectSintoma" value="#{controleOS.objeto.sintomaPrincipal}" >
+                        <f:converter converterId="converterSintomas"/>
+                        <f:selectItem itemLabel="Selecione um registro"
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{controleOS.daoSintomas.listaTodos}"
+                                       var="t" itemLabel="#{t.id_sint}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton value="Salvar" icon="ui-icon-disk"
+                                     actionListener="#{controleOS.salvar()}"
+                                     update="formEdicao :formListagem"/>
+                </p:panelGrid>
+
+                <h:panelGroup id="painelCausas">
+                    <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-20"
+                                 layout="grid" styleClass="ui-panelgrid-blank" 
+                                 rendered="#{controleOS.editandoCausa}">
+                        <f:facet name="header">
+                            <p:outputLabel value="Edição de Causas"/>
+                        </f:facet>
+                        <p:outputLabel value="Causa"/>
+                        <p:selectOneMenu id="cbxcausa" value="#{controleOS.causa}">
+                            <f:selectItem itemLabel="Selecione um registro"
+                                          noSelectionOption="true"/>
+                            <f:selectItems value="#{controleOS.daoCausa.listaTodos}"
+                                           var="p" itemLabel="#{p.id_causa}"/>
+                            <f:converter converterId="converterTipoUsuario"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value=""/>
+                        <p:commandButton id="btnSalvarCausas" icon="ui-icon-disk"
+                                         actionListener="#{controleOS.salvarCausa()}"
+                                         process="cbxcausa btnSalvarCausas"
+                                         update="painelCausas listagemCausas"/>                                         
+                    </p:panelGrid>                
+                    <p:growl/>
+                </h:panelGroup>
+            </div>
+            <h:panelGroup id="listagemCausas">
+                <h:panelGroup rendered="#{!controleOS.editandoCausa}">
+                    <p:commandButton value="Nova Causa" icon="ui-icon-plus"
+                                     actionListener="#{controleOS.novaCausa()}"
+                                     update="painelCausas listagemCausas"
+                                     process="@this"
+                                     id="btnNovaCausa"/>
+                    <p:dataTable value="#{controleOS.objeto.causaPrincipal}"
+                                 var="c" reflow="true">
+                        <f:facet name="header">
+                            <p:outputLabel value="Causas"/>
+                        </f:facet>
+                        <p:column headerText="Nome">
+                            <p:outputLabel value="#{c.nome}"/>
+                        </p:column>
+                        <p:column headerText="Descrição">
+                            <p:outputLabel value="#{c.descricao}"/>
+                        </p:column>                        
+                        <p:column headerText="Ações">
+                            <div align="center">
+                                <p:commandButton icon="ui-icon-trash"
+                                                 actionListener="#{controleOS.removerCausa(c)}"
+                                                 process="@this" update="@form"/>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGroup>
+            </h:panelGroup>
+            <h:panelGroup id="painelSintomas">
+                <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-20"
+                             layout="grid" styleClass="ui-panelgrid-blank" 
+                             rendered="#{controleOS.editandoSintoma}">
+                    <f:facet name="header">
+                        <p:outputLabel value="Edição de Sintomas"/>
+                    </f:facet>
+                    <p:outputLabel value="Sintomas"/>
+                    <p:selectOneMenu id="cbxSintoma" value="#{controleOS.sintoma}">
+                        <f:selectItem itemLabel="Selecione um registro"
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{controleOS.daoSintomas.listaTodos}"
+                                       var="s" itemLabel="#{s.id_sintoma}"/>
+                        <f:converter converterId="converterSintomas"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value=""/>
+                    <p:commandButton id="btnSalvarSintomas" icon="ui-icon-disk"
+                                     actionListener="#{controleOS.salvarSintoma()}"
+                                     process="cbxSintoma btnSalvarSintomas"
+                                     update="painelSintomas listagemSintomas"/>                                         
+                </p:panelGrid>                
+                <p:growl/>
+            </h:panelGroup>
+            
+            <h:panelGroup id="listagemSintomas">
+                <h:panelGroup rendered="#{!controleOS.editandoSintoma}">
+                    <p:commandButton value="Nova Causa" icon="ui-icon-plus"
+                                     actionListener="#{controleOS.novoSintoma()}"
+                                     update="painelSintomas listagemSintomas"
+                                     process="@this"
+                                     id="btnNovoSintoma"/>
+                    <p:dataTable value="#{controleOS.objeto.sintomaPrincipal}"
+                                 var="s" reflow="true">
+                        <f:facet name="header">
+                            <p:outputLabel value="Sintomas"/>
+                        </f:facet>
+                        <p:column headerText="Nome">
+                            <p:outputLabel value="#{s.nome}"/>
+                        </p:column>
+                        <p:column headerText="Descrição">
+                            <p:outputLabel value="#{s.descricao}"/>
+                        </p:column>                        
+                        <p:column headerText="Ações">
+                            <div align="center">
+                                <p:commandButton icon="ui-icon-trash"
+                                                 actionListener="#{controleOS.removerSintoma(s)}"
+                                                 process="@this" update="@form"/>
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGroup>
+            </h:panelGroup>     
+        </h:panelGroup>
+    </h:form>
+</html>
+
+

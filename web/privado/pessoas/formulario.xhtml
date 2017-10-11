@@ -82,21 +82,21 @@
                                  requiredMessage="O numero celular deve ser informado"
                                  placeholder="Obrigatório"
                                  mask="(99)9999-9999"/>
-                    <p:outputLabel value="Categoria" for="selectCategoria"/>
+                    <p:outputLabel value="Tipo" for="selectTipo" id="cb_tipo" />
+                    <p:selectOneMenu id="selectTipo" value="#{controlePessoas.objeto.tipo}" >
+                        <f:converter converterId="converterTipoUsuario"/>
+                        <f:selectItem itemLabel="Selecione um registro"
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{controlePessoas.daoPermissao.listaTodos}"
+                                       var="t" itemLabel="#{t.nome}"/>
+                    </p:selectOneMenu>
+                     <p:outputLabel value="Categoria" for="selectCategoria"/>
                     <p:selectOneMenu id="selectCategoria" value="#{controlePessoas.objeto.categoria}">
                         <f:converter converterId="converterCategorias"/>
                         <f:selectItem itemLabel="Selecione um registro"
                                       noSelectionOption="true"/>
                         <f:selectItems value="#{controlePessoas.daoCategorias.listaTodos}"
                                        var="s" itemLabel="#{s.nome}"/>
-                    </p:selectOneMenu>
-                    <p:outputLabel value="Tipo" for="selectTipo"/>
-                    <p:selectOneMenu id="selectTipo" value="#{controlePessoas.objeto.tipo}">
-                        <f:converter converterId="converterTipoUsuario"/>
-                        <f:selectItem itemLabel="Selecione um registro"
-                                      noSelectionOption="true"/>
-                        <f:selectItems value="#{controlePessoas.daoPermissao.listaTodos}"
-                                       var="t" itemLabel="#{t.nome}"/>
                     </p:selectOneMenu>
 
                     <p:commandButton value="Salvar" icon="ui-icon-disk"
