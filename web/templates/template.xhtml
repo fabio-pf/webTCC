@@ -41,7 +41,8 @@
                                               rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO'])}"/>
                              <b:navCommandLink value="OS" 
                                               ajax="false"
-                                              />
+                                              action="#{controleOS.listar()}"
+                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO'])}"/>
                         </b:dropMenu>
                       
                         <b:dropMenu value="Usuário: #{controleLogin.usuarioAutenticado != null ?
@@ -60,7 +61,7 @@
                 </b:navBar>
             </h:form>
             <ui:insert name="conteudo">
-teste
+
             </ui:insert>
         </b:container>
     </h:body>

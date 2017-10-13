@@ -9,12 +9,12 @@
         <ui:define name="titulo">Manutenção de Usuários</ui:define>
         <ui:define name="conteudo">
             <h:form id="formListagem">
-                <h:panelGroup rendered="#{!controlePessoas.editando}">
+                <h:panelGroup rendered="#{!controleOS.editando}">
                     <p:messages/>
                     <p:commandButton value="Novo" icon="ui-icon-plus"
-                                     actionListener="#{controlePessoas.novo()}"
+                                     actionListener="#{controleOS.novo()}"
                                      update="formEdicao formListagem"/>
-                    <p:dataTable value="#{controlePessoas.dao.listaTodos}" var="obj"
+                    <p:dataTable value="#{controleOS.dao.listaTodos}" var="obj"
                                  reflow="true"
                                  rows="4" id="listagem">
                         <f:facet name="header">
@@ -25,71 +25,57 @@
                                              ui-grid-col-1, ui-grid-col-3, ui-grid-col-1,
                                              ui-grid-col-2, ui-grid-col-2">
                                      <p:outputLabel value="Ordem:" />
-                                    <p:selectOneMenu value="#{controlePessoas.dao.ordem}">                                        
+                                    <p:selectOneMenu value="#{controleOS.dao.ordem}">                                        
                                         <f:selectItem itemLabel="Nome" itemValue="nome"/>                            
                                         <p:ajax update="listagem"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Filtro: "/>
-                                    <p:inputText value="#{controlePessoas.dao.filtro}"/>                                                            
+                                    <p:inputText value="#{controleOS.dao.filtro}"/>                                                            
                                     <p:commandButton value="Filtrar" update="listagem" icon="ui-icon-search"/>
                                     <p:outputLabel value="Máximo de objetos:"/>
-                                    <p:inputText value="#{controlePessoas.dao.maximoObjetos}" size="5">
+                                    <p:inputText value="#{controleOS.dao.maximoObjetos}" size="5">
                                         <p:ajax event="keyup" update="listagem"/>
                                     </p:inputText>
                                 </p:panelGrid>
                             </div>                                            
                         </f:facet>
                         <f:facet name="footer"> 
-                            <p:outputLabel value="#{controlePessoas.dao.mensagemNavegacao} &nbsp; &nbsp;"/>
-                            <p:commandButton action="#{controlePessoas.dao.primeiro()}"
+                            <p:outputLabel value="#{controleOS.dao.mensagemNavegacao} &nbsp; &nbsp;"/>
+                            <p:commandButton action="#{controleOS.dao.primeiro()}"
                                              icon="ui-icon-seek-first" title="Primeiro" update="listagem"/>
-                            <p:commandButton action="#{controlePessoas.dao.anterior()}"
+                            <p:commandButton action="#{controleOS.dao.anterior()}"
                                              icon="ui-icon-seek-prev" title="Anterior" update="listagem"/>
-                            <p:commandButton action="#{controlePessoas.dao.proximo()}"
+                            <p:commandButton action="#{controleOS.dao.proximo()}"
                                              icon="ui-icon-seek-next" title="Próximo" update="listagem"/>
-                            <p:commandButton action="#{controlePessoas.dao.ultimo()}"
+                            <p:commandButton action="#{controleOS.dao.ultimo()}"
                                              icon="ui-icon-seek-end" title="Ultimo" update="listagem"/>
                         </f:facet>
-                        <p:column headerText="ID">
-                            <p:outputLabel value="#{obj.id}"/>
-                        </p:column>
-                        <p:column headerText="Nome">
-                            <p:outputLabel value="#{obj.nome}"/>
-                        </p:column>
-                        <p:column headerText="Endereço">
-                            <p:outputLabel value="#{obj.endereco}"/>
-                        </p:column>
-                        <p:column headerText="Cidade">
-                            <p:outputLabel value="#{obj.cidade}"/>
-                        </p:column>
-                        <p:column headerText="Telefone">
-                            <p:outputLabel value="#{obj.t_celular}" />
-                        </p:column>
-                         <p:column headerText="Categoria">
-                            <p:outputLabel value="#{obj.categoria.nome}"/>
-                        </p:column>
                         <p:column headerText="Tipo">
-                            <p:outputLabel value="#{obj.tipo}">
-                                <f:converter converterId="converterTipoUsuario"/>
-                            </p:outputLabel>
+                            <p:outputLabel value="#{obj.tipo_OS.nome}"/>
                         </p:column>
-                        
+                        <p:column headerText="Descrição">
+                            <p:outputLabel value="#{obj.descricao_servico}"/>
+                        </p:column>
+                        <p:column headerText="Tecnico">
+                            <p:outputLabel value="#{obj.tecnico.nome}"/>
+                        </p:column>
+  
                         <p:column headerText="Ações">
                             <div align="center">
                                 <p:commandButton icon="ui-icon-pencil"
-                                                 actionListener="#{controlePessoas.alterar(obj.id)}"
+                                                 actionListener="#{controleOS.alterar(obj.id)}"
                                                  process="@form"
                                                  update=":formEdicao formListagem"/>
                                 <p:commandButton icon="ui-icon-trash"
-                                                 actionListener="#{controlePessoas.remover(obj.id)}"
-                                                 process="@form" update=":formListagem"
-                                                 rendered="#{p:ifGranted('ADMINISTRADOR')}"/>
+                                                 actionListener="#{controleOS.remover(obj.id)}"
+                                                 process="@form" update=":formListagem"/>
+                                               
                             </div>
                         </p:column>
                     </p:dataTable>
                 </h:panelGroup>
             </h:form>
-            <ui:include src="/privado/pessoas/formulario.xhtml"/>
+            <ui:include src="/privado/os/formulario.xhtml"/>
         </ui:define>
     </ui:composition>
 </html>

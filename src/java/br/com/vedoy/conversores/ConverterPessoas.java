@@ -5,7 +5,7 @@
  */
 package br.com.vedoy.conversores;
 
-import br.com.vedoy.modelo.Usuarios;
+import br.com.vedoy.modelo.Pessoas;
 import java.io.Serializable;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -18,8 +18,8 @@ import javax.persistence.PersistenceContext;
  *
  * @author Fabio V
  */
-@FacesConverter(value = "converterUsuarios")
-public class ConverterUsuarios implements Serializable, Converter {
+@FacesConverter(value = "converterPessoas")
+public class ConverterPessoas implements Serializable, Converter {
     
     @PersistenceContext(unitName = "OSWebPU")
     private EntityManager em;    
@@ -29,7 +29,7 @@ public class ConverterUsuarios implements Serializable, Converter {
         if (string == null || string.equals("Selecione um registro")){
             return null;
         }
-        return em.find(Usuarios.class, Integer.parseInt(string));
+        return em.find(Pessoas.class, Integer.parseInt(string));
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ConverterUsuarios implements Serializable, Converter {
         if (o == null){
             return null;
         }
-        Usuarios obj = (Usuarios) o;
+        Pessoas obj = (Pessoas) o;
         return obj.getId().toString();
     }
 

@@ -2,7 +2,6 @@
 package br.com.vedoy.dao;
 
 import br.com.vedoy.modelo.Ordem_Servicos;
-import br.com.vedoy.modelo.Usuarios;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Stateful;
@@ -14,7 +13,7 @@ public class OsDAO<T> extends DAOGenerico<Ordem_Servicos> implements Serializabl
     public OsDAO(){
         super();        
         super.classePersistente = Ordem_Servicos.class;
-        ordem = "nome";
+        ordem = "id_os";
     }
     
      public T getObjectById(String id) throws Exception {
@@ -39,7 +38,7 @@ public class OsDAO<T> extends DAOGenerico<Ordem_Servicos> implements Serializabl
         }
         jpql += where;
         jpql += " order by "+ordem;
-        totalObjetos = em.createQuery("select id from " + classePersistente.getSimpleName() +
+        totalObjetos = em.createQuery("select id_os from " + classePersistente.getSimpleName() +
                 where + " order by " + ordem).getResultList().size();
         return em.createQuery(jpql).setFirstResult(posicaoAtual).
                 setMaxResults(maximoObjetos).getResultList();        

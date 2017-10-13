@@ -90,7 +90,7 @@ public class DAOGenerico<T> implements Serializable {
     }
 
     public List<T> getListaTodos() {
-        String jpql = "from " + classePersistente.getSimpleName();
+        String jpql = " from " + classePersistente.getSimpleName();
         return em.createQuery(jpql).getResultList();
     }
     

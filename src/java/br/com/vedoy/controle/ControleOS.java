@@ -8,12 +8,14 @@ package br.com.vedoy.controle;
 import br.com.vedoy.dao.CategoriasDAO;
 import br.com.vedoy.dao.CausasDAO;
 import br.com.vedoy.dao.OsDAO;
+import br.com.vedoy.dao.PessoaDAO;
 import br.com.vedoy.dao.ProdutosDAO;
 import br.com.vedoy.dao.SintomasDAO;
 import br.com.vedoy.dao.UsuarioDAO;
 import br.com.vedoy.modelo.Categorias;
 import br.com.vedoy.modelo.Causas;
 import br.com.vedoy.modelo.Ordem_Servicos;
+import br.com.vedoy.modelo.Pessoas;
 import br.com.vedoy.modelo.Produtos;
 import br.com.vedoy.modelo.Sintomas;
 import br.com.vedoy.modelo.Usuarios;
@@ -33,7 +35,9 @@ public class ControleOS implements Serializable{
     @EJB
     private OsDAO<Ordem_Servicos> dao;
     @EJB
-    private UsuarioDAO<Usuarios> daoUsuario;
+    private PessoaDAO<Pessoas> daoPessoas;
+    @EJB
+    private UsuarioDAO<Usuarios> daoUsuarios;
     @EJB
     private CausasDAO<Causas> daoCausa;
     @EJB
@@ -92,7 +96,7 @@ public class ControleOS implements Serializable{
      
     public void salvar(){
         try{
-            if(objeto.getId_os()==  null){
+            if(objeto.getId()==  null){
                 dao.persist(objeto);
                } else{
                 dao.merge(objeto);
@@ -156,14 +160,6 @@ public class ControleOS implements Serializable{
 
     public void setDao(OsDAO<Ordem_Servicos> dao) {
         this.dao = dao;
-    }
-
-    public UsuarioDAO<Usuarios> getDaoUsuario() {
-        return daoUsuario;
-    }
-
-    public void setDaoUsuario(UsuarioDAO<Usuarios> daoUsuario) {
-        this.daoUsuario = daoUsuario;
     }
 
     public CausasDAO<Causas> getDaoCausa() {
@@ -245,8 +241,21 @@ public class ControleOS implements Serializable{
     public void setEditandoSintoma(Boolean editandoSintoma) {
         this.editandoSintoma = editandoSintoma;
     }
-   
 
-    
-    
+    public PessoaDAO<Pessoas> getDaoPessoas() {
+        return daoPessoas;
+    }
+
+    public void setDaoPessoas(PessoaDAO<Pessoas> daoPessoas) {
+        this.daoPessoas = daoPessoas;
+    }
+
+    public UsuarioDAO<Usuarios> getDaoUsuarios() {
+        return daoUsuarios;
+    }
+
+    public void setDaoUsuarios(UsuarioDAO<Usuarios> daoUsuarios) {
+        this.daoUsuarios = daoUsuarios;
+    }
+      
 }

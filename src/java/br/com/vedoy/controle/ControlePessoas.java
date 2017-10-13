@@ -29,7 +29,7 @@ public class ControlePessoas implements Serializable{
     private PessoaDAO<Pessoas> dao;
     private Pessoas objeto;
     private Boolean editando;
-     @EJB
+    @EJB
     private CategoriasDAO<Categorias> daoCategorias;
     @EJB
     private TipoUsuarioDAO<Tipo_Usuario> daoPermissao;
