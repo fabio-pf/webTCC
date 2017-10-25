@@ -7,8 +7,11 @@ package br.com.vedoy.controle;
 
 import br.com.vedoy.dao.ProdutosDAO;
 import br.com.vedoy.modelo.Produtos;
+import br.com.vedoy.relatorios.Relatorio;
 import br.com.vedoy.util.Util;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
@@ -27,6 +30,7 @@ public class ControleProdutos implements Serializable{
     private Produtos objeto;
     private Boolean editando;
     private Boolean novoObjeto;
+     private List<Produtos> lista = new ArrayList<Produtos>();
     
     public ControleProdutos(){        
         editando = false;
@@ -112,5 +116,9 @@ public class ControleProdutos implements Serializable{
         this.novoObjeto = novoObjeto;
     }
 
+    public void gerarRelatorio() {
+        Relatorio relatorio = new Relatorio();
+        relatorio.getRelatorio();
+    }
   
 }

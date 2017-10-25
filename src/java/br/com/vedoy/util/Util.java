@@ -30,6 +30,9 @@ public class Util {
             e = (Exception) e.getCause();
         }
         String retorno = e.getMessage();
+        if(retorno.contains("viola restrição de chave estrangeira")){
+            retorno = "Registro nao pode ser excluido por estar sendo usado por outra classe do sistema!!";
+        }
         return retorno;
     }
 

@@ -23,8 +23,8 @@
                                              styleClass="ui-panelgrid-blank"
                                              columnClasses="ui-grid-col-1, ui-grid-col-2,
                                              ui-grid-col-1, ui-grid-col-3, ui-grid-col-1,
-                                             ui-grid-col-2, ui-grid-col-2">
-                                     <p:outputLabel value="Ordem:" />
+                                             ui-grid-col-2, ui-grid-col-2" style="text-align:center">
+                                    <p:outputLabel value="Ordem:" />
                                     <p:selectOneMenu value="#{controleOS.dao.ordem}">                                        
                                         <f:selectItem itemLabel="Nome" itemValue="nome"/>                            
                                         <p:ajax update="listagem"/>
@@ -59,7 +59,13 @@
                         <p:column headerText="Tecnico">
                             <p:outputLabel value="#{obj.tecnico.nome}"/>
                         </p:column>
-  
+                        <p:column headerText="Cliente">
+                            <p:outputLabel value="#{obj.cliente.nome}"/>
+                        </p:column>
+                        <p:column headerText="Finalizado">
+                            <p:outputLabel value="#{obj.status == true ? 'SIM': 'NÃO'}" />
+                        </p:column>
+
                         <p:column headerText="Ações">
                             <div align="center">
                                 <p:commandButton icon="ui-icon-pencil"
@@ -68,8 +74,9 @@
                                                  update=":formEdicao formListagem"/>
                                 <p:commandButton icon="ui-icon-trash"
                                                  actionListener="#{controleOS.remover(obj.id)}"
-                                                 process="@form" update=":formListagem"/>
-                                               
+                                                 process="@form" update=":formListagem"
+                                                 onclick="if(!confirm('Confirma a exclusão?')) return false"/>
+
                             </div>
                         </p:column>
                     </p:dataTable>

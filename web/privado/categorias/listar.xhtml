@@ -68,7 +68,8 @@
                                                  update=":formEdicao formListagem"/>
                                 <p:commandButton icon="ui-icon-trash"
                                                  actionListener="#{controleCategorias.excluir(obj.id)}"
-                                                 process="@form" update=":formListagem"/>
+                                                 process="@form" update=":formListagem"
+                                                 onclick="if(!confirm('Confirma a exclusão?')) return false"/>
                             </div>
                         </p:column>
                     </p:dataTable>

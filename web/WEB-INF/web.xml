@@ -10,7 +10,7 @@
     </context-param>
     <context-param>
         <param-name>BootsFaces_THEME</param-name>
-        <param-value>flatly</param-value>
+        <param-value>cyborg</param-value>
     </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
@@ -44,7 +44,7 @@
         <auth-constraint>
             <description/>
             <role-name>ADMINISTRADOR</role-name>
-            <role-name>USUARIO</role-name>
+            <role-name>TECNICO</role-name>
             <role-name>ATENDENTE</role-name>
             <role-name>CLIENTE</role-name>
         </auth-constraint>
@@ -59,10 +59,6 @@
             <web-resource-name>LoginSeguro</web-resource-name>
             <description/>
             <url-pattern>/login.xhtml</url-pattern>
-            <http-method>GET</http-method>
-            <http-method>PUT</http-method>
-            <http-method>POST</http-method>
-            <http-method>DELETE</http-method>
         </web-resource-collection>
         <user-data-constraint>
             <description/>
@@ -89,8 +85,8 @@
         <role-name>ADMINISTRADOR</role-name>
     </security-role>
     <security-role>
-        <description>Usuario</description>
-        <role-name>USUARIO</role-name>
+        <description>TECNICO</description>
+        <role-name>TECNICO</role-name>
     </security-role>
      <security-role>
         <description>Cliente</description>

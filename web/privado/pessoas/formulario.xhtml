@@ -6,20 +6,36 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:form id="formEdicao">
         <h:panelGroup rendered="#{controlePessoas.editando}">
-            <div class="ui-fluid">
+            <div class="ui-fluid" >
                 <p:messages/>
                 <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-20"
-                             layout="grid" styleClass="ui-panelgrid-blank">
+                             layout="grid" styleClass="ui-panelgrid-blank" >
                     <f:facet name="header">
-                        <p:outputLabel value="Edição de Usuários"/>
+                        <p:outputLabel value="Inserir de Usuários"/>
                     </f:facet>
-                    <p:outputLabel for="txtID" value="ID"/>
-                    <p:inputText id="txtID" value="#{controlePessoas.objeto.id}" readonly="true"
-                                 size="10"/>
-                    <p:outputLabel value="Nome de usuário" for="txtUsuario"/>
+                    <p:outputLabel value="Tipo" for="selectTipo" id="cb_tipo"  />
+                    <p:selectOneMenu id="selectTipo" value="#{controlePessoas.objeto.tipo}" >
+                        <f:converter converterId="converterTipoUsuario"/>
+                        <f:selectItem itemLabel="Selecione um registro"
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{controlePessoas.daoPermissao.listaTodos}"
+                                       var="t" itemLabel="#{t.nome}" id="tipo" />
+                        <f:ajax event="change" listener="#{controlePessoas.mostraCampoComplemento(controlePessoas.objeto.tipo.nome)}" 
+                                execute="@this" render="@form" />
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Categoria" for="selectCategoria" 
+                                   id="txtCategoria" rendered="#{controlePessoas.exibePainelX}" />
+                     <p:selectOneMenu id="selectCategoria" value="#{controlePessoas.objeto.categoria}" rendered="#{controlePessoas.exibePainelX}" >
+                        <f:converter converterId="converterCategorias"/>
+                        <f:selectItem itemLabel="Selecione um registro"
+                                      noSelectionOption="true"/>
+                        <f:selectItems value="#{controlePessoas.daoCategorias.listaTodos}"
+                                       var="s" itemLabel="#{s.nome}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel value="Nome de usuário" for="txtUsuario" />
                     <p:inputText id="txtUsuario" value="#{controlePessoas.objeto.usuario}"
-                                 size="30" maxlength="30" placeholder="Obrigatório"/>
-                    <p:outputLabel value="Senha" for="txtSenha"/>
+                                 size="30" maxlength="30" placeholder="Obrigatório" disabled="#{controlePessoas.aux}"/>
+                    <p:outputLabel value="Senha" for="txtSenha" />
                     <p:password id="txtSenha" value="#{controlePessoas.objeto.senha}"
                                 redisplay="true" size="20" maxlength="20"
                                 placeholder="Obrigatório" feedback="true"/>
@@ -81,30 +97,13 @@
                                  required="true"
                                  requiredMessage="O numero celular deve ser informado"
                                  placeholder="Obrigatório"
-                                 mask="(99)9999-9999"/>
-                    <p:outputLabel value="Tipo" for="selectTipo" id="cb_tipo" />
-                    <p:selectOneMenu id="selectTipo" value="#{controlePessoas.objeto.tipo}" >
-                        <f:converter converterId="converterTipoUsuario"/>
-                        <f:selectItem itemLabel="Selecione um registro"
-                                      noSelectionOption="true"/>
-                        <f:selectItems value="#{controlePessoas.daoPermissao.listaTodos}"
-                                       var="t" itemLabel="#{t.nome}"/>
-                    </p:selectOneMenu>
-                     <p:outputLabel value="Categoria" for="selectCategoria"/>
-                    <p:selectOneMenu id="selectCategoria" value="#{controlePessoas.objeto.categoria}">
-                        <f:converter converterId="converterCategorias"/>
-                        <f:selectItem itemLabel="Selecione um registro"
-                                      noSelectionOption="true"/>
-                        <f:selectItems value="#{controlePessoas.daoCategorias.listaTodos}"
-                                       var="s" itemLabel="#{s.nome}"/>
-                    </p:selectOneMenu>
-
+                                 mask="(99)99999-9999"/>
                     <p:commandButton value="Salvar" icon="ui-icon-disk"
                                      actionListener="#{controlePessoas.salvar()}"
                                      update="formEdicao :formListagem"/>
                 </p:panelGrid>
 
-                <h:panelGroup id="painelPermissao">
+                <h:panelGroup id="painelPermissao" rendered="#{controlePessoas.aux}">
                     <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-20"
                                  layout="grid" styleClass="ui-panelgrid-blank" 
                                  rendered="#{controlePessoas.editandoPermissao}">
@@ -128,7 +127,7 @@
                     <p:growl/>
                 </h:panelGroup>
             </div>
-            <h:panelGroup id="listagemPermissao">
+            <h:panelGroup id="listagemPermissao" rendered="#{controlePessoas.aux}">
                 <h:panelGroup rendered="#{!controlePessoas.editandoPermissao}">
                     <p:commandButton value="Nova permissão" icon="ui-icon-plus"
                                      actionListener="#{controlePessoas.novaPermissao()}"
@@ -157,6 +156,7 @@
                 </h:panelGroup>
             </h:panelGroup>
         </h:panelGroup>
+
     </h:form>
 </html>
 

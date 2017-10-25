@@ -39,12 +39,26 @@
                                               ajax="false"
                                               action="#{controlePessoas.listar()}"
                                               rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO'])}"/>
-                             <b:navCommandLink value="OS" 
+                            <b:navCommandLink value="OS" 
                                               ajax="false"
                                               action="#{controleOS.listar()}"
+                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO', 'CLIENTE'])}"/>
+                        </b:dropMenu>
+                        <b:dropMenu value="Relatorios"
+                                    rendered="#{controleLogin.usuarioAutenticado != null}">
+                            <b:navCommandLink value="Produtos"
+                                              ajax="false"
+                                              action="#{controleProdutos.gerarRelatorio()}"
                                               rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO'])}"/>
                         </b:dropMenu>
-                      
+                        
+                        <b:dropMenu value="Sobre.."
+                                    rendered="#{controleLogin.usuarioAutenticado != null}">
+                            <b:navCommandLink value="Categorias"
+                                              ajax="false" />
+
+                        </b:dropMenu>
+
                         <b:dropMenu value="Usuário: #{controleLogin.usuarioAutenticado != null ?
                                                       controleLogin.usuarioAutenticado.usuario :
                                                       ' Não autenticado'}">

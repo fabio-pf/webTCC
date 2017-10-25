@@ -22,7 +22,7 @@ public class DAOGenerico<T> implements Serializable {
     protected Class classePersistente;
     protected String ordem = "";
     protected String filtro = "";
-    protected Integer maximoObjetos = 2;
+    protected Integer maximoObjetos = 5;
     protected Integer posicaoAtual = 0;
     protected Integer totalObjetos = 0;
 
@@ -47,8 +47,7 @@ public class DAOGenerico<T> implements Serializable {
         }
         jpql += where;
         jpql += " order by "+ordem;
-        totalObjetos = em.createQuery("select nome from " + classePersistente.getSimpleName() +
-                where + " order by " + ordem).getResultList().size();
+        totalObjetos = em.createQuery("select  *from " + classePersistente.getSimpleName()).getResultList().size();
         System.out.println("total de obj: "+totalObjetos + "JPQL " +jpql);
         return em.createQuery(jpql).setFirstResult(posicaoAtual).
                 setMaxResults(maximoObjetos).getResultList();        

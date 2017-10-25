@@ -14,5 +14,12 @@ public class PessoaDAO<T> extends DAOGenerico<Pessoas> implements Serializable {
         super.classePersistente = Pessoas.class;
         ordem = "nome";
     }
+    
+    @Override
+    public Pessoas getObjectById(Integer id) throws Exception {
+        Pessoas obj = (Pessoas) em.find(classePersistente, id);
+        obj.getTipos_usuario().size(); // inicializa a lista de permissões do usuário
+        return obj;
+    }
    
 }

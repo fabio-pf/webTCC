@@ -19,6 +19,8 @@
                     <f:facet name="footer">
                         <p:commandButton value="Efetuar login" action="#{controleLogin.efetuarLogin()}"
                                          ajax="false"/>
+                        <p:separator/>
+                        <p:outputLabel value="Caso nao tenha cadastro favor entrar em contato com a empresa."/>
                     </f:facet>
                     <p:outputLabel value="Usuário" for="txtUsuario"/>
                     <p:inputText value="#{controleLogin.usuario}" id="txtUsuario"/>

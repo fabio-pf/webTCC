@@ -13,7 +13,7 @@ public class OsDAO<T> extends DAOGenerico<Ordem_Servicos> implements Serializabl
     public OsDAO(){
         super();        
         super.classePersistente = Ordem_Servicos.class;
-        ordem = "id_os";
+        ordem = "id";
     }
     
      public T getObjectById(String id) throws Exception {

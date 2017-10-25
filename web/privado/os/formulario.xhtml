@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
     <h:form id="formEdicao">
         <h:panelGroup rendered="#{controleOS.editando}">
             <div class="ui-fluid">
@@ -13,10 +14,9 @@
                     <f:facet name="header">
                         <p:outputLabel value="Edição de OS"/>
                     </f:facet>
-                    <p:outputLabel for="txtID" value="ID"/>
-                    <p:inputText id="txtID" value="#{controleOS.objeto.id}" readonly="true"
-                                 size="10"/>
-                    <p:outputLabel value="Descrição" for="txtDescricao"/>
+                    <p:outputLabel id="txtAtendente2" value="#{controleOS.objeto.setAtendente(controleLogin.usuarioAutenticado)}"/>
+                    <p:separator/>
+                    <p:outputLabel value="Descrição" for="txtDescricao" />
                     <p:inputTextarea id="txtDescricao" value="#{controleOS.objeto.descricao_servico}"
                                      placeholder="Obrigatório"/>
                     <p:outputLabel value="Tipo OS" for="selectTipo" id="cb_tipo" />
@@ -27,9 +27,8 @@
                         <f:selectItems value="#{controleOS.daoTipo.listaTodos}"
                                        var="t" itemLabel="#{t.nome}"/>
                     </p:selectOneMenu>
-                    <p:outputLabel value="Finalizado?" for="selectStatus"/>
-                    <p:selectBooleanCheckbox id="selectStatus" value="#{controleOS.objeto.status}"/>
-
+                    <p:outputLabel value="Finalizado?" for="selectStatus" rendered="#{controleOS.aux}"/>
+                    <p:selectBooleanCheckbox id="selectStatus" value="#{controleOS.objeto.status}" rendered="#{controleOS.aux}"/>
                     <p:outputLabel value="Prioridade" for="selectPrioridade"/>
                     <p:selectOneMenu id="selectPrioridade" value="#{controleOS.objeto.prioridade}" >
                         <f:selectItem itemLabel="Selecione um registro"
@@ -46,22 +45,12 @@
                                 navigator="true">
                         <f:converter converterId="converterCalendar"/>
                     </p:calendar>
-                    <p:outputLabel for="txtFim" value="Fim"/>
+                    <p:outputLabel for="txtFim" value="Fim" rendered="#{controleOS.aux}"/>
                     <p:calendar id="txtFim" value="#{controleOS.objeto.fim}"
                                 mask="true" pattern="dd/MM/yyyy"
-                                navigator="true">
+                                navigator="true" rendered="#{controleOS.aux}">
                         <f:converter converterId="converterCalendar"/>
                     </p:calendar>
-                    <p:outputLabel value="Observações" for="txtObservacao"/>
-                    <p:inputTextarea id="txtObservacao" value="#{controleOS.objeto.observacoes}"/>
-                    <p:outputLabel value="Atendente" for="selectAtendente"/>
-                    <p:selectOneMenu id="selectAtendente" value="#{controleOS.objeto.atendente}" >
-                        <f:converter converterId="converterPessoas"/>
-                        <f:selectItem itemLabel="Selecione um registro"
-                                      noSelectionOption="true"/>
-                        <f:selectItems value="#{controleOS.daoPessoas.listaTodos}"
-                                       var="a" itemLabel="#{a.nome}"/>
-                    </p:selectOneMenu>
                     <p:outputLabel value="Cliente" for="selectCliente" />
                     <p:selectOneMenu id="selectCliente" value="#{controleOS.objeto.cliente}" >
                         <f:converter converterId="converterPessoas"/>
@@ -70,7 +59,7 @@
                         <f:selectItems value="#{controleOS.daoPessoas.listaTodos}"
                                        var="c" itemLabel="#{c.nome}"/>
                     </p:selectOneMenu>
-                    <p:outputLabel value="Tecnico" for="selectTecnico" />
+                    <p:outputLabel value="Tecnico" for="selectTecnico"/>
                     <p:selectOneMenu id="selectTecnico" value="#{controleOS.objeto.tecnico}" >
                         <f:converter converterId="converterPessoas"/>
                         <f:selectItem itemLabel="Selecione um registro"
@@ -86,8 +75,8 @@
                         <f:selectItems value="#{controleOS.daoProdutos.listaTodos}"
                                        var="t" itemLabel="#{t.nome}"/>
                     </p:selectOneMenu>
-                    <p:outputLabel value="Causa Principal" for="selectCausa" id="cb_causa" />
-                    <p:selectOneMenu id="selectCausa" value="#{controleOS.objeto.causaPrincipal}" >
+                    <p:outputLabel value="Causa Principal" for="selectCausa" id="cb_causa" rendered="#{controleOS.aux}" />
+                    <p:selectOneMenu id="selectCausa" value="#{controleOS.objeto.causaPrincipal}" rendered="#{controleOS.aux}" >
                         <f:converter converterId="converterCausas"/>
                         <f:selectItem itemLabel="Selecione um registro"
                                       noSelectionOption="true"/>
@@ -101,9 +90,12 @@
                         <f:selectItems value="#{controleOS.daoSintomas.listaTodos}"
                                        var="t" itemLabel="#{t.nome}"/>
                     </p:selectOneMenu>
+                    <p:outputLabel value="Observações" for="txtObservacao" rendered="#{controleOS.aux}"/>
+                    <p:inputTextarea id="txtObservacao" value="#{controleOS.objeto.observacoes}" rendered="#{controleOS.aux}"/>
                     <p:commandButton value="Salvar" icon="ui-icon-disk"
                                      actionListener="#{controleOS.salvar()}"
                                      update="formEdicao :formListagem"/>
+                    
                 </p:panelGrid>
                 <p:separator/>
                 <h:panelGroup id="painelCausas">
@@ -114,7 +106,7 @@
                             <p:outputLabel value="Edição de Causas"/>
                         </f:facet>
                         <p:outputLabel value="Causa"/>
-                        <p:selectOneMenu id="cbxcausa" value="#{controleOS.objeto.causaPrincipal}">
+                        <p:selectOneMenu id="cbxcausa" value="#{controleOS.causa}">
                             <f:selectItem itemLabel="Selecione um registro"
                                           noSelectionOption="true"/>
                             <f:selectItems value="#{controleOS.daoCausa.listaTodos}"
@@ -137,7 +129,7 @@
                                      update="painelCausas listagemCausas"
                                      process="@this"
                                      id="btnNovaCausa"/>
-                    <p:dataTable value="#{controleOS.objeto.causaPrincipal}"
+                    <p:dataTable value="#{controleOS.objeto.os_causas}"
                                  var="c" reflow="true">
                         <f:facet name="header">
                             <p:outputLabel value="Causas"/>
@@ -167,7 +159,7 @@
                         <p:outputLabel value="Edição de Sintomas"/>
                     </f:facet>
                     <p:outputLabel value="Sintomas"/>
-                    <p:selectOneMenu id="cbxSintoma" value="#{controleOS.objeto.sintomaPrincipal}">
+                    <p:selectOneMenu id="cbxSintoma" value="#{controleOS.sintoma}">
                         <f:selectItem itemLabel="Selecione um registro"
                                       noSelectionOption="true"/>
                         <f:selectItems value="#{controleOS.daoSintomas.listaTodos}"
@@ -190,7 +182,7 @@
                                      update="painelSintomas listagemSintomas"
                                      process="@this"
                                      id="btnNovoSintoma"/>
-                    <p:dataTable value="#{controleOS.objeto.sintomaPrincipal}"
+                    <p:dataTable value="#{controleOS.objeto.os_sintomas}"
                                  var="s" reflow="true">
                         <f:facet name="header">
                             <p:outputLabel value="Sintomas"/>

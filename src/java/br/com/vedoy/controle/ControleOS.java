@@ -52,6 +52,9 @@ public class ControleOS implements Serializable{
     private Sintomas sintoma;
     private Boolean editandoCausa;
     private Boolean editandoSintoma;
+    private Boolean aux = false;
+    private String usuarioLogado;
+   
     
     public ControleOS(){
         editando = false;
@@ -63,22 +66,22 @@ public class ControleOS implements Serializable{
         editando = false;
         editandoCausa = false;
         editandoSintoma = false;
+        aux = false;
          return "/privado/os/listar?faces-redirect=true";
     }
     
     public void novo(){
         editando = true;
-       editandoCausa = false;
-        editandoSintoma = false;
-        objeto = new Ordem_Servicos();
+        objeto = new Ordem_Servicos(); 
+        SetAtendente();
     }
     
     public void alterar(Integer id){
         try{
             objeto = dao.getObjectById(id);
             editando = true; 
-            editandoCausa = false;
-            editandoSintoma = false;
+            aux = true;
+            SetAtendente();
         }catch(Exception e){
             Util.mensagemErro("Erro ao Recuperar objeto "+Util.getMensagemErro(e));
         }    
@@ -257,5 +260,31 @@ public class ControleOS implements Serializable{
     public void setDaoUsuarios(UsuarioDAO<Usuarios> daoUsuarios) {
         this.daoUsuarios = daoUsuarios;
     }
+
+    public Boolean getAux() {
+        return aux;
+    }
+
+    public void setAux(Boolean aux) {
+        this.aux = aux;
+    }
+    
+    public String SetAtendente(){
+      ControleLogin log = new ControleLogin();
+      usuarioLogado = log.getUsuarioAutenticado().getUsuario();
+        System.out.println("UsuarioLogado = "+usuarioLogado);
+        return usuarioLogado;
+      
+      
+    }
+
+    public String getUsuarioLogado() {
+        return usuarioLogado;
+    }
+
+    public void setUsuarioLogado(String usuarioLogado) {
+        this.usuarioLogado = usuarioLogado;
+    }
+    
       
 }

@@ -35,6 +35,8 @@ public class ControleLogin implements Serializable {
     @NotNull(message = "A senha não pode ser nula")
     @NotBlank(message = "A senha deve ser informada")
     private String senha;
+    private String usuarioLogado;
+    
 
     public ControleLogin() {
 
@@ -43,6 +45,7 @@ public class ControleLogin implements Serializable {
     public String paginaLogin() {
         return "/login?faces-redirect=true";
     }
+    
 
     public String efetuarLogin() {
         try {
@@ -122,7 +125,19 @@ public class ControleLogin implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+    
+    public void setarUsuarioLogado(){
+        usuarioLogado = usuarioAutenticado.getUsuario();
+    }
 
+    public String getUsuarioLogado() {
+        return usuarioLogado;
+    }
+
+    public void setUsuarioLogado(String usuarioLogado) {
+        this.usuarioLogado = usuarioLogado;
+    }
+    
    
 
 }

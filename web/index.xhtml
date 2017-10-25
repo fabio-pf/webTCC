@@ -3,16 +3,31 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="titulo">Sistema Gerenciador de OS</ui:define>
         <ui:define name="conteudo">
             <p:messages/>
             <h:form>
-                <p:commandButton actionListener="#{controleUsuarios.listar()}" 
-                                 id="iconOnly"  
-                                 image="./img/usuario" 
-                                 title="Icon Only" />
+                <div class="ui-fluid">
+                    <b:panelGrid columns="2" rendered="#{controleLogin.usuarioAutenticado != null}"
+                                 styleClass="ui-panelgrid-blank"
+                                 columnClasses="ui-g-6 ui-md-12 ui-lg-12" >
+                        <b:commandButton value="Listar OS" ajax="true" update="@none" action="#{controleOS.listar()}"
+                                         look="primary" style="width:150px; height:200px; padding:50px; margin:5px; alignment-adjust: central;"/>
+                        <b:commandButton value="Listar Produtos" ajax="true" update="@none" action="#{controleProdutos.listar()}" 
+                                         look="info" style="width:150px; height:200px; padding:20px ; margin:5px; align-content: center"/>
+                        <b:commandButton value="Listar Causas" ajax="true" update="@none" action="#{controleCausas.listar()}"
+                                         look="success" style="width:150px; height:200px; padding:20px; margin:5px; align-content: center"/>
+                        <b:commandButton value="Listar Sintomas" ajax="true" update="@none" action="#{controleSintomas.listar()}"
+                                         look="warning" style="width:150px; height:200px; padding:20px; margin:5px; align-content: center"/>
+                        <b:commandButton value="Listar Usuarios" ajax="true" update="@none"  action="#{controleUsuarios.listar()}"
+                                         look="danger" style="width:150px; height:200px; padding:20px; margin:5px; align-content: center"/>
+                        <b:commandButton value="Listar Categorias" ajax="true" update="@none" action="#{controleCategorias.listar()}"
+                                         style="width:150px; height:200px; padding:20px; margin:5px; align-content: center"/>
+                    </b:panelGrid>
+                </div>
             </h:form>
         </ui:define>
     </ui:composition>
