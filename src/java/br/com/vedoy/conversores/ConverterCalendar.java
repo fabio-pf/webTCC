@@ -34,5 +34,9 @@ public class ConverterCalendar implements Serializable, Converter {
         Calendar obj = (Calendar) o;
         return sdf.format(obj.getTime());
     }
+    
+    public void setarHora(){
+        
+    }
 
 }

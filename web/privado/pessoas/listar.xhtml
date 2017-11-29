@@ -78,7 +78,7 @@
                                                  actionListener="#{controlePessoas.remover(obj.id)}"
                                                  process="@form" update=":formListagem"
                                                  onclick="if(!confirm('Confirma a exclusão?')) return false"
-                                                 />
+                                                 rendered="#{p:ifGranted('ADMINISTRADOR')}"/>
                             </div>
                             
                         </p:column>

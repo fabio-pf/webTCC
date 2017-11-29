@@ -10,7 +10,7 @@
     </context-param>
     <context-param>
         <param-name>BootsFaces_THEME</param-name>
-        <param-value>cyborg</param-value>
+        <param-value>simplex</param-value>
     </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>

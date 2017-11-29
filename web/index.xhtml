@@ -15,17 +15,41 @@
                                  styleClass="ui-panelgrid-blank"
                                  columnClasses="ui-g-6 ui-md-12 ui-lg-12" >
                         <b:commandButton value="Listar OS" ajax="true" update="@none" action="#{controleOS.listar()}"
-                                         look="primary" style="width:150px; height:200px; padding:50px; margin:5px; alignment-adjust: central;"/>
+                                         look="primary" style="width:150px; height:200px; padding:50px; margin:5px; 
+                                         alignment-adjust: central; align-self: center"
+                                         rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR', 'ATENDENTE'])}"/>
+                        <b:commandButton value="Listar OS" ajax="true" update="@none" action="#{controleOS.listarTecnico()}"
+                                         look="primary" style="width:150px; height:200px; padding:50px; margin:5px; 
+                                         alignment-adjust: central; align-self: center"
+                                         rendered="#{controleLogin.temPermissoes(['TECNICO'])}"/>
+                        <b:commandButton value="Listar OS" ajax="true" update="@none" action="#{controleOS.listarCliente()}"
+                                         look="primary" style="width:150px; height:200px; padding:50px; margin:5px; 
+                                         alignment-adjust: central; align-self: center"
+                                         rendered="#{controleLogin.temPermissoes(['CLIENTE'])}"/>
+                        
                         <b:commandButton value="Listar Produtos" ajax="true" update="@none" action="#{controleProdutos.listar()}" 
-                                         look="info" style="width:150px; height:200px; padding:20px ; margin:5px; align-content: center"/>
+                                         look="info" style="width:150px; height:200px; padding:20px ; margin:5px; align-content: center;
+                                         align-self: center"
+                                         rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR'])}"/>
+                        
                         <b:commandButton value="Listar Causas" ajax="true" update="@none" action="#{controleCausas.listar()}"
-                                         look="success" style="width:150px; height:200px; padding:20px; margin:5px; align-content: center"/>
+                                         look="success" style="width:150px; height:200px; padding:20px; margin:5px; align-content: center;
+                                         align-self: center"
+                                         rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR'])}"/>
+                        
                         <b:commandButton value="Listar Sintomas" ajax="true" update="@none" action="#{controleSintomas.listar()}"
-                                         look="warning" style="width:150px; height:200px; padding:20px; margin:5px; align-content: center"/>
+                                         look="warning" style="width:150px; height:200px; padding:20px; margin:5px; align-content: center;
+                                         align-self: center"
+                                         rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR'])}"/>
+                        
                         <b:commandButton value="Listar Usuarios" ajax="true" update="@none"  action="#{controleUsuarios.listar()}"
-                                         look="danger" style="width:150px; height:200px; padding:20px; margin:5px; align-content: center"/>
+                                         look="danger" style="width:150px; height:200px; padding:20px; margin:5px; align-content: center"
+                                         rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR'])}"/>
+                        
                         <b:commandButton value="Listar Categorias" ajax="true" update="@none" action="#{controleCategorias.listar()}"
-                                         style="width:150px; height:200px; padding:20px; margin:5px; align-content: center"/>
+                                         style="width:150px; height:200px; padding:20px; margin:5px; align-content: center;
+                                         align-self: center"
+                                         rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR'])}"/>
                     </b:panelGrid>
                 </div>
             </h:form>

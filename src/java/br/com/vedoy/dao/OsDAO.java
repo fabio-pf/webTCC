@@ -3,45 +3,53 @@ package br.com.vedoy.dao;
 
 import br.com.vedoy.modelo.Ordem_Servicos;
 import java.io.Serializable;
-import java.util.List;
 import javax.ejb.Stateful;
+import java.util.List;
 
 
 @Stateful
 public class OsDAO<T> extends DAOGenerico<Ordem_Servicos> implements Serializable {
 
-    public OsDAO(){
-        super();        
+    public OsDAO() {
+        super();
         super.classePersistente = Ordem_Servicos.class;
         ordem = "id";
     }
     
-     public T getObjectById(String id) throws Exception {
-        return (T) em.find(classePersistente, id);
+    public Ordem_Servicos getObjectById(String id) throws Exception {
+        return (Ordem_Servicos) em.find(classePersistente, id);
     }
     
     @Override
-    public List<Ordem_Servicos> getListaObjetos() {
-        String jpql = "from " + classePersistente.getSimpleName();
+     public List<Ordem_Servicos> getListaObjetos() {
+        String jpql = " from " + classePersistente.getSimpleName();
         String where = "";
-        // limpando o filtro contra injeção de SQL
-        filtro = filtro.replaceAll("[';-]","");
+        filtro = filtro.replaceAll("[';-]", "");
         if (filtro.length() > 0){
             if (ordem.equals("id")){
                 try {
                     Integer.parseInt(filtro);
                     where += " where " + ordem + " = '" + filtro + "' ";
-                }catch (Exception e){}
+                } catch (Exception e){}
             } else {
                 where += " where upper(" + ordem + ") like '" + filtro.toUpperCase() + "%' ";
-            }
+            }            
         }
         jpql += where;
-        jpql += " order by "+ordem;
-        totalObjetos = em.createQuery("select id_os from " + classePersistente.getSimpleName() +
-                where + " order by " + ordem).getResultList().size();
-        return em.createQuery(jpql).setFirstResult(posicaoAtual).
-                setMaxResults(maximoObjetos).getResultList();        
+        jpql += " order by " + ordem;
+        totalObjetos = em.createQuery(jpql).getResultList().size();        
+        return em.createQuery(jpql).setFirstResult(posicaoAtual).setMaxResults(maximoObjetos).getResultList();
+    }
+    
+    public List<T> getListaCliente(Integer us) {
+        String jpql = "from " + classePersistente.getSimpleName() + " where cliente = " + us;
+        return em.createQuery(jpql).getResultList();
     } 
     
+   
+    public List<T> getListaTecnico(Integer us) {
+        String jpql = "from " + classePersistente.getSimpleName() + " where tecnico = " + us;
+        return em.createQuery(jpql).getResultList();
+    } 
 }
+    

@@ -27,7 +27,7 @@ public class ConverterPessoas implements Serializable, Converter {
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String string) {
         if (string == null || string.equals("Selecione um registro")){
-            return null;
+            return 0;
         }
         return em.find(Pessoas.class, Integer.parseInt(string));
     }

@@ -31,7 +31,7 @@
                                     <p:inputText value="#{controleCategorias.dao.filtro}"/>                                                            
                                     <p:commandButton value="Filtrar" update="listagem" icon="ui-icon-search"/>
                                     <p:outputLabel value="Máximo de objetos:"/>
-                                    <p:inputText value="#{controleCategorias.dao.maximoObjetos}" size="5">
+                                    <p:inputText value="#{controleCategorias.dao.maximoObjetos}" size="">
                                         <p:ajax event="keyup" update="listagem"/>
                                     </p:inputText>
                                 </p:panelGrid>
@@ -69,7 +69,8 @@
                                 <p:commandButton icon="ui-icon-trash"
                                                  actionListener="#{controleCategorias.excluir(obj.id)}"
                                                  process="@form" update=":formListagem"
-                                                 onclick="if(!confirm('Confirma a exclusão?')) return false"/>
+                                                 onclick="if(!confirm('Confirma a exclusão?')) return false"
+                                                 rendered="#{p:ifGranted('ADMINISTRADOR')}"/>
                             </div>
                         </p:column>
                     </p:dataTable>

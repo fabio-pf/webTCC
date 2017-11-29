@@ -45,7 +45,7 @@ public class Relatorio {
     defina um parametro: List<Objeto> lista, se usar JavaBean DataSource
     */
     public void getRelatorio(){
-        stream = this.getClass().getResourceAsStream("relatorio/reportProdutos.jasper");
+        stream = this.getClass().getResourceAsStream("relatorio/relatorioProdutos.jasper");
         Map<String, Object> params = new HashMap<String, Object>();
         baos = new ByteArrayOutputStream();
         

@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Manutenção de OS</ui:define>
+        <ui:define name="conteudo">
+            <h:form id="formListagem">
+                <h:panelGroup rendered="#{!controleOS.editando}">
+                    <p:messages/>
+                    <p:commandButton value="Novo" icon="ui-icon-plus"
+                                     actionListener="#{controleOS.novo()}"
+                                     update="formEdicao formListagem"
+                                     rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO', 'ATENDENTE'])}"/>
+                    <p:dataTable value="#{controleOS.dao.getListaCliente(controleLogin.usuarioAutenticado.id)}" var="obj"
+                                 reflow="true"
+                                 rows="4" id="listagem">
+                        <f:facet name="header">
+                            <div class="ui-fluid">
+                                <p:panelGrid columns="9" layout="grid"
+                                             styleClass="ui-panelgrid-blank"
+                                             columnClasses="ui-grid-col-1, ui-grid-col-2,
+                                             ui-grid-col-1, ui-grid-col-3, ui-grid-col-1,
+                                             ui-grid-col-2, ui-grid-col-2" style="text-align:center">
+                                    <p:outputLabel value="Ordem:" />
+                                    <p:selectOneMenu value="#{controleOS.dao.ordem}">                                        
+                                        <f:selectItem itemLabel="Tipo OS" itemValue="tipo_os"/>
+                                        <f:selectItem itemLabel="Status" itemValue="status"/>
+                                        <f:selectItem itemLabel="Tecnico" itemValue="tecnico.nome"/>
+                                        <f:selectItem itemLabel="Cliente" itemValue="cliente.nome"/>
+                                        <p:ajax update="listagem"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Filtro: "/>
+                                    <p:inputText value="#{controleOS.dao.filtro}"/>                                                            
+                                    <p:commandButton value="Filtrar" update="listagem" icon="ui-icon-search"/>
+                                    <p:outputLabel value="Máximo de objetos:"/>
+                                    <p:inputText value="#{controleOS.dao.maximoObjetos}" size="5">
+                                        <p:ajax event="keyup" update="listagem"/>
+                                    </p:inputText>
+                                </p:panelGrid>
+                            </div>                                            
+                        </f:facet>
+                        <p:column headerText="Tipo">
+                            <p:outputLabel value="#{obj.tipo_OS.nome}"/>
+                        </p:column>
+                        <p:column headerText="Descrição">
+                            <p:outputLabel value="#{obj.descricao_servico}"/>
+                        </p:column>
+                        <p:column headerText="Tecnico">
+                            <p:outputLabel value="#{obj.tecnico.nome}"/>
+                        </p:column>
+                        <p:column headerText="Cliente">
+                            <p:outputLabel value="#{obj.cliente.nome}"/>
+                        </p:column>
+                        <p:column headerText="Finalizado">
+                            <p:outputLabel value="#{obj.status == true ? 'SIM': 'NÃO'}" />
+                        </p:column>
+
+                        
+                    </p:dataTable>
+                </h:panelGroup>
+            </h:form>
+            <ui:include src="/privado/os/formulario.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>

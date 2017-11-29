@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="/templates/template.xhtml">
+        <ui:define name="titulo">Manutenção de OS</ui:define>
+        <ui:define name="conteudo">
+            <h:form id="formListagem">
+                <h:panelGroup rendered="#{!controleOS.editando}">
+                    <p:messages/>
+                    <p:commandButton value="Novo" icon="ui-icon-plus"
+                                     actionListener="#{controleOS.novo()}"
+                                     update="formEdicao formListagem"
+                                     rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO', 'ATENDENTE'])}"/>
+                    <p:dataTable value="#{controleOS.dao.getListaTecnico(controleLogin.usuarioAutenticado.id)}" var="obj"
+                                 reflow="true"
+                                 id="listagem">
+                        <p:column headerText="Tipo">
+                            <p:outputLabel value="#{obj.tipo_OS.nome}" rendered="#{obj.status == false}"/>
+                        </p:column>
+                        <p:column headerText="Descrição">
+                            <p:outputLabel value="#{obj.descricao_servico}" rendered="#{obj.status == false}"/>
+                        </p:column>
+                        <p:column headerText="Tecnico">
+                            <p:outputLabel value="#{obj.tecnico.nome}" rendered="#{obj.status == false}"/>
+                        </p:column>
+                        <p:column headerText="Cliente">
+                            <p:outputLabel value="#{obj.cliente.nome}" rendered="#{obj.status == false}"/>
+                        </p:column>
+                        <p:column headerText="Finalizado">
+                            <p:outputLabel value="#{obj.status == true ? 'SIM': 'NÃO'}" rendered="#{obj.status == false}"/>
+                        </p:column>
+
+                        <p:column headerText="Ações">
+                            <div align="center">
+                                <p:commandButton icon="ui-icon-pencil"
+                                                 actionListener="#{controleOS.alterar(obj.id)}"
+                                                 process="@form"
+                                                 update=":formEdicao formListagem"
+                                                 rendered="#{obj.status == false}"/>
+                                <p:commandButton icon="ui-icon-trash"
+                                                 actionListener="#{controleOS.remover(obj.id)}"
+                                                 process="@form" update=":formListagem"
+                                                 onclick="if(!confirm('Confirma a exclusão?')) return false"
+                                                 rendered="#{p:ifGranted('ADMINISTRADOR')}"/>
+
+                            </div>
+                        </p:column>
+                    </p:dataTable>
+                </h:panelGroup>
+            </h:form>
+            <ui:include src="/privado/os/formulario.xhtml"/>
+        </ui:define>
+    </ui:composition>
+</html>

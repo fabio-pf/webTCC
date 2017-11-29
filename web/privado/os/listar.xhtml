@@ -6,14 +6,15 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <ui:composition template="/templates/template.xhtml">
-        <ui:define name="titulo">Manutenção de Usuários</ui:define>
+        <ui:define name="titulo">Manutenção de OS</ui:define>
         <ui:define name="conteudo">
             <h:form id="formListagem">
                 <h:panelGroup rendered="#{!controleOS.editando}">
                     <p:messages/>
                     <p:commandButton value="Novo" icon="ui-icon-plus"
                                      actionListener="#{controleOS.novo()}"
-                                     update="formEdicao formListagem"/>
+                                     update="formEdicao formListagem"
+                                     rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO', 'ATENDENTE'])}"/>
                     <p:dataTable value="#{controleOS.dao.listaTodos}" var="obj"
                                  reflow="true"
                                  rows="4" id="listagem">
@@ -26,7 +27,10 @@
                                              ui-grid-col-2, ui-grid-col-2" style="text-align:center">
                                     <p:outputLabel value="Ordem:" />
                                     <p:selectOneMenu value="#{controleOS.dao.ordem}">                                        
-                                        <f:selectItem itemLabel="Nome" itemValue="nome"/>                            
+                                        <f:selectItem itemLabel="Tipo OS" itemValue="tipo_os"/>
+                                        <f:selectItem itemLabel="Status" itemValue="status"/>
+                                        <f:selectItem itemLabel="Tecnico" itemValue="tecnico.nome"/>
+                                        <f:selectItem itemLabel="Cliente" itemValue="cliente.nome"/>
                                         <p:ajax update="listagem"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Filtro: "/>
@@ -56,10 +60,10 @@
                         <p:column headerText="Descrição">
                             <p:outputLabel value="#{obj.descricao_servico}"/>
                         </p:column>
-                        <p:column headerText="Tecnico">
+                        <p:column headerText="Tecnico" sortBy="tecnico.nome">
                             <p:outputLabel value="#{obj.tecnico.nome}"/>
                         </p:column>
-                        <p:column headerText="Cliente">
+                        <p:column headerText="Cliente" sortBy="cliente.nome" >
                             <p:outputLabel value="#{obj.cliente.nome}"/>
                         </p:column>
                         <p:column headerText="Finalizado">
@@ -72,10 +76,15 @@
                                                  actionListener="#{controleOS.alterar(obj.id)}"
                                                  process="@form"
                                                  update=":formEdicao formListagem"/>
+                                <p:commandButton icon="ui-icon-mail-closed"
+                                                 actionListener="#{sendMail.send(obj)}"
+                                                 process="@form"
+                                                 update=":formEdicao formListagem"/>
                                 <p:commandButton icon="ui-icon-trash"
                                                  actionListener="#{controleOS.remover(obj.id)}"
                                                  process="@form" update=":formListagem"
-                                                 onclick="if(!confirm('Confirma a exclusão?')) return false"/>
+                                                 onclick="if(!confirm('Confirma a exclusão?')) return false"
+                                                 rendered="#{p:ifGranted('ADMINISTRADOR')}"/>
 
                             </div>
                         </p:column>

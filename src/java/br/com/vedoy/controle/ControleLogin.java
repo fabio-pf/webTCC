@@ -5,7 +5,10 @@
  */
 package br.com.vedoy.controle;
 
+import br.com.vedoy.dao.DAOGenerico;
+import br.com.vedoy.dao.OsDAO;
 import br.com.vedoy.dao.UsuarioDAO;
+import br.com.vedoy.modelo.Ordem_Servicos;
 import br.com.vedoy.util.Util;
 import br.com.vedoy.modelo.Usuarios;
 import java.io.Serializable;
@@ -15,7 +18,9 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
+import net.bootsfaces.component.alert.Alert;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -35,8 +40,8 @@ public class ControleLogin implements Serializable {
     @NotNull(message = "A senha não pode ser nula")
     @NotBlank(message = "A senha deve ser informada")
     private String senha;
-    private String usuarioLogado;
     
+   
 
     public ControleLogin() {
 
@@ -65,6 +70,16 @@ public class ControleLogin implements Serializable {
             return "/login.xhtml";
         }
     }
+    
+     public Usuarios pegarDaSessao() {
+        HttpSession session;
+
+        FacesContext ctx = FacesContext.getCurrentInstance();
+        session = (HttpSession) ctx.getExternalContext().getSession(false);
+
+        return (Usuarios) session.getAttribute("usuarioAutenticado");
+    }
+    
 
     public String efetuarLogout() {
         try {
@@ -125,19 +140,4 @@ public class ControleLogin implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
-    public void setarUsuarioLogado(){
-        usuarioLogado = usuarioAutenticado.getUsuario();
-    }
-
-    public String getUsuarioLogado() {
-        return usuarioLogado;
-    }
-
-    public void setUsuarioLogado(String usuarioLogado) {
-        this.usuarioLogado = usuarioLogado;
-    }
-    
-   
-
 }

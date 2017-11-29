@@ -18,7 +18,7 @@
                             <b:navCommandLink value="Categorias"
                                               ajax="false"
                                               action="#{controleCategorias.listar()}"
-                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO'])}"/>
+                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR'])}"/>
                             <b:navCommandLink value="Causas"
                                               ajax="false"
                                               action="#{controleCausas.listar()}"
@@ -30,7 +30,7 @@
                             <b:navCommandLink value="Permissões"
                                               ajax="false"
                                               action="#{controleTipoUsuarios.listar()}"
-                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO'])}"/>
+                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR'])}"/>
                             <b:navCommandLink value="Produtos"
                                               ajax="false"
                                               action="#{controleProdutos.listar()}"
@@ -38,11 +38,27 @@
                             <b:navCommandLink value="Usuarios" 
                                               ajax="false"
                                               action="#{controlePessoas.listar()}"
-                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO'])}"/>
+                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR'])}"/>
+                            <b:dropMenu value="OS" >
                             <b:navCommandLink value="OS" 
                                               ajax="false"
                                               action="#{controleOS.listar()}"
-                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO', 'CLIENTE'])}"/>
+                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR', 'ATENDENTE'])}"/>
+                            <b:navCommandLink value="OS Pendentes" 
+                                              ajax="false"
+                                              action="#{controleOS.listarCliente()}"
+                                              rendered="#{controleLogin.temPermissoes(['CLIENTE'])}"/>
+                            <b:dropMenu value="OS Tecnico" rendered="#{controleLogin.temPermissoes(['TECNICO'])}">
+                            <b:navCommandLink value="OS Pendentes" 
+                                              ajax="false"
+                                              action="#{controleOS.listarTecnico()}"
+                                              rendered="#{controleLogin.temPermissoes(['TECNICO'])}"/>
+                            <b:navCommandLink value="OS Todas" 
+                                              ajax="false"
+                                              action="#{controleOS.listarTecnicoTodas()}"
+                                              rendered="#{controleLogin.temPermissoes(['TECNICO'])}"/>
+                            </b:dropMenu>
+                            </b:dropMenu>
                         </b:dropMenu>
                         <b:dropMenu value="Relatorios"
                                     rendered="#{controleLogin.usuarioAutenticado != null}">

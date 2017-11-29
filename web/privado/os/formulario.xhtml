@@ -28,7 +28,9 @@
                                        var="t" itemLabel="#{t.nome}"/>
                     </p:selectOneMenu>
                     <p:outputLabel value="Finalizado?" for="selectStatus" rendered="#{controleOS.aux}"/>
-                    <p:selectBooleanCheckbox id="selectStatus" value="#{controleOS.objeto.status}" rendered="#{controleOS.aux}"/>
+                    <p:selectBooleanCheckbox id="selectStatus" value="#{controleOS.objeto.status}" 
+                                             rendered="#{controleOS.aux}"
+                                             valueChangeListener="#{controleOS.setaFim(controleOS.objeto.status, controleOS.objeto.id)}"/>
                     <p:outputLabel value="Prioridade" for="selectPrioridade"/>
                     <p:selectOneMenu id="selectPrioridade" value="#{controleOS.objeto.prioridade}" >
                         <f:selectItem itemLabel="Selecione um registro"
@@ -36,19 +38,15 @@
                         <f:selectItem itemLabel="Normal" itemValue='1' />
                         <f:selectItem itemLabel="Urgente" itemValue='2' />
                     </p:selectOneMenu>
-                    <p:outputLabel for="txtInicio" value="Inicio"/>
-                    <p:calendar id="txtInicio" value="#{controleOS.objeto.inicio}"
+                    <p:outputLabel for="txtInicio" value="Aberto"/>
+                    <p:calendar id="txtInicio" value="#{controleOS.data}"
                                 mask="true" pattern="dd/MM/yyyy"
                                 placeholder="Obrigatório"
                                 required="true"
                                 requiredMessage="O inicio deve ser informado"
-                                navigator="true">
-                        <f:converter converterId="converterCalendar"/>
-                    </p:calendar>
-                    <p:outputLabel for="txtFim" value="Fim" rendered="#{controleOS.aux}"/>
-                    <p:calendar id="txtFim" value="#{controleOS.objeto.fim}"
-                                mask="true" pattern="dd/MM/yyyy"
-                                navigator="true" rendered="#{controleOS.aux}">
+                                navigator="true"
+                                disabled="true"
+                                onfocus="#{controleOS.setaInicio()}">
                         <f:converter converterId="converterCalendar"/>
                     </p:calendar>
                     <p:outputLabel value="Cliente" for="selectCliente" />
@@ -59,8 +57,8 @@
                         <f:selectItems value="#{controleOS.daoPessoas.listaTodos}"
                                        var="c" itemLabel="#{c.nome}"/>
                     </p:selectOneMenu>
-                    <p:outputLabel value="Tecnico" for="selectTecnico"/>
-                    <p:selectOneMenu id="selectTecnico" value="#{controleOS.objeto.tecnico}" >
+                    <p:outputLabel value="Tecnico" for="selectTecnico" rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR', 'ATENDENTE'])}"/>
+                    <p:selectOneMenu id="selectTecnico" value="#{controleOS.objeto.tecnico}" rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR', 'ATENDENTE'])}">
                         <f:converter converterId="converterPessoas"/>
                         <f:selectItem itemLabel="Selecione um registro"
                                       noSelectionOption="true"/>
@@ -94,8 +92,9 @@
                     <p:inputTextarea id="txtObservacao" value="#{controleOS.objeto.observacoes}" rendered="#{controleOS.aux}"/>
                     <p:commandButton value="Salvar" icon="ui-icon-disk"
                                      actionListener="#{controleOS.salvar()}"
-                                     update="formEdicao :formListagem"/>
-                    
+                                     action="#{sendMail.send(controleOS.objeto)}"
+                                     update="formEdicao :formListagem" />
+                                                             
                 </p:panelGrid>
                 <p:separator/>
                 <h:panelGroup id="painelCausas">
