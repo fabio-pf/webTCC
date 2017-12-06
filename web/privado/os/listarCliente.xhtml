@@ -13,8 +13,7 @@
                     <p:messages/>
                     <p:commandButton value="Novo" icon="ui-icon-plus"
                                      actionListener="#{controleOS.novo()}"
-                                     update="formEdicao formListagem"
-                                     rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO', 'ATENDENTE'])}"/>
+                                     update="formEdicao formListagem"/>
                     <p:dataTable value="#{controleOS.dao.getListaCliente(controleLogin.usuarioAutenticado.id)}" var="obj"
                                  reflow="true"
                                  rows="4" id="listagem">
@@ -29,15 +28,14 @@
                                     <p:selectOneMenu value="#{controleOS.dao.ordem}">                                        
                                         <f:selectItem itemLabel="Tipo OS" itemValue="tipo_os"/>
                                         <f:selectItem itemLabel="Status" itemValue="status"/>
-                                        <f:selectItem itemLabel="Tecnico" itemValue="tecnico.nome"/>
-                                        <f:selectItem itemLabel="Cliente" itemValue="cliente.nome"/>
+                                        
                                         <p:ajax update="listagem"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Filtro: "/>
                                     <p:inputText value="#{controleOS.dao.filtro}"/>                                                            
                                     <p:commandButton value="Filtrar" update="listagem" icon="ui-icon-search"/>
                                     <p:outputLabel value="Máximo de objetos:"/>
-                                    <p:inputText value="#{controleOS.dao.maximoObjetos}" size="5">
+                                    <p:inputText value="#{controleOS.dao.maximoObjetos}" size="10">
                                         <p:ajax event="keyup" update="listagem"/>
                                     </p:inputText>
                                 </p:panelGrid>

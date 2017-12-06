@@ -115,10 +115,5 @@ public class ControleProdutos implements Serializable{
     public void setNovoObjeto(Boolean novoObjeto) {
         this.novoObjeto = novoObjeto;
     }
-
-    public void gerarRelatorio() {
-        Relatorio relatorio = new Relatorio();
-        relatorio.getRelatorio();
-    }
   
 }

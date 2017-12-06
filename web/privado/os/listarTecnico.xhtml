@@ -18,23 +18,46 @@
                     <p:dataTable value="#{controleOS.dao.getListaTecnico(controleLogin.usuarioAutenticado.id)}" var="obj"
                                  reflow="true"
                                  id="listagem">
-                        <p:column headerText="Tipo">
+                        <f:facet name="header">
+                            <div class="ui-fluid">
+                                <p:panelGrid columns="9" layout="grid"
+                                             styleClass="ui-panelgrid-blank"
+                                             columnClasses="ui-grid-col-1, ui-grid-col-2,
+                                             ui-grid-col-1, ui-grid-col-3, ui-grid-col-1,
+                                             ui-grid-col-2, ui-grid-col-2" style="text-align:center">
+                                    <p:outputLabel value="Ordem:" />
+                                    <p:selectOneMenu value="#{controleOS.dao.ordem}">                                        
+                                        <f:selectItem itemLabel="Tipo OS" itemValue="tipo_os"/>
+                                        <f:selectItem itemLabel="Status" itemValue="status"/>
+                                        <p:ajax update="listagem"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Filtro: "/>
+                                    <p:inputText value="#{controleOS.dao.filtro}"/>                                                            
+                                    <p:commandButton value="Filtrar" update="listagem" icon="ui-icon-search"/>
+                                    <p:outputLabel value="Máximo de objetos:"/>
+                                    <p:inputText value="#{controleOS.dao.maximoObjetos}" size="10">
+                                        <p:ajax event="keyup" update="listagem"/>
+                                    </p:inputText>
+                                </p:panelGrid>
+                            </div>                                            
+                        </f:facet>
+                        <p:column headerText="Tipo" rendered="#{obj.status == false}">
                             <p:outputLabel value="#{obj.tipo_OS.nome}" rendered="#{obj.status == false}"/>
                         </p:column>
-                        <p:column headerText="Descrição">
+                        <p:column headerText="Descrição" rendered="#{obj.status == false}">
                             <p:outputLabel value="#{obj.descricao_servico}" rendered="#{obj.status == false}"/>
                         </p:column>
-                        <p:column headerText="Tecnico">
+                        <p:column headerText="Tecnico" rendered="#{obj.status == false}">
                             <p:outputLabel value="#{obj.tecnico.nome}" rendered="#{obj.status == false}"/>
                         </p:column>
-                        <p:column headerText="Cliente">
+                        <p:column headerText="Cliente" rendered="#{obj.status == false}">
                             <p:outputLabel value="#{obj.cliente.nome}" rendered="#{obj.status == false}"/>
                         </p:column>
-                        <p:column headerText="Finalizado">
+                        <p:column headerText="Finalizado" rendered="#{obj.status == false}">
                             <p:outputLabel value="#{obj.status == true ? 'SIM': 'NÃO'}" rendered="#{obj.status == false}"/>
                         </p:column>
 
-                        <p:column headerText="Ações">
+                        <p:column headerText="Ações" rendered="#{obj.status == false}">
                             <div align="center">
                                 <p:commandButton icon="ui-icon-pencil"
                                                  actionListener="#{controleOS.alterar(obj.id)}"

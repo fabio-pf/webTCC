@@ -26,6 +26,7 @@ public class SendMail {
 	private Session session;
 
         public void send(Ordem_Servicos objeto){
+        System.out.println("objeto" +objeto.toString());
         String status;
             System.out.println("Chegou no send" +objeto.getId());
         if(objeto.isStatus()== true){
@@ -58,9 +59,6 @@ public class SendMail {
         texto.append("Data Fim: ").append(dataFim.getTime()).append('\n');
         texto.append("Finalizado por: ").append(objeto.getAtendente().getNome()).append('\n');
     
-        
-        Util.mensagemErro(texto.toString());
-    
          System.out.println("Send start");
 		Message msg = new MimeMessage(session);
 		try {
@@ -76,7 +74,7 @@ public class SendMail {
 			e.printStackTrace();
                         Util.getMensagemErro(e);
 		}
-		System.out.println("Send finished");   
+		System.out.println("Envio Finalizado");   
     }
 }
 

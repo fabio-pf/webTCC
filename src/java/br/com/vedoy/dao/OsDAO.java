@@ -20,36 +20,35 @@ public class OsDAO<T> extends DAOGenerico<Ordem_Servicos> implements Serializabl
         return (Ordem_Servicos) em.find(classePersistente, id);
     }
     
-    @Override
-     public List<Ordem_Servicos> getListaObjetos() {
-        String jpql = " from " + classePersistente.getSimpleName();
-        String where = "";
-        filtro = filtro.replaceAll("[';-]", "");
-        if (filtro.length() > 0){
-            if (ordem.equals("id")){
-                try {
-                    Integer.parseInt(filtro);
-                    where += " where " + ordem + " = '" + filtro + "' ";
-                } catch (Exception e){}
-            } else {
-                where += " where upper(" + ordem + ") like '" + filtro.toUpperCase() + "%' ";
-            }            
-        }
-        jpql += where;
-        jpql += " order by " + ordem;
-        totalObjetos = em.createQuery(jpql).getResultList().size();        
-        return em.createQuery(jpql).setFirstResult(posicaoAtual).setMaxResults(maximoObjetos).getResultList();
-    }
+   @Override
+    public List<Ordem_Servicos> getListaObjetos() {
+        String jpql = "from " + classePersistente.getSimpleName();
+        jpql += " order by "+ordem;
+        totalObjetos = 100;
+        System.out.println("SQL: "+jpql);
+        return em.createQuery(jpql).setFirstResult(posicaoAtual).
+                setMaxResults(maximoObjetos).getResultList();        
+    }    
     
     public List<T> getListaCliente(Integer us) {
-        String jpql = "from " + classePersistente.getSimpleName() + " where cliente = " + us;
-        return em.createQuery(jpql).getResultList();
-    } 
+        String jpql = "from " + classePersistente.getSimpleName()+
+                " where cliente = " + us;
+        jpql += " order by "+ordem;
+        totalObjetos = 100;
+        System.out.println("SQL: "+jpql);
+        return em.createQuery(jpql).setFirstResult(posicaoAtual).
+                setMaxResults(maximoObjetos).getResultList();        
+    }    
     
    
     public List<T> getListaTecnico(Integer us) {
-        String jpql = "from " + classePersistente.getSimpleName() + " where tecnico = " + us;
-        return em.createQuery(jpql).getResultList();
+         String jpql = "from " + classePersistente.getSimpleName()+
+                " where tecnico = " + us;
+        jpql += " order by "+ordem;
+        totalObjetos = 100;
+        System.out.println("SQL: "+jpql);
+        return em.createQuery(jpql).setFirstResult(posicaoAtual).
+                setMaxResults(maximoObjetos).getResultList(); 
     } 
 }
     

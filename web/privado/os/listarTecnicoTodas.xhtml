@@ -18,6 +18,32 @@
                     <p:dataTable value="#{controleOS.dao.getListaTecnico(controleLogin.usuarioAutenticado.id)}" var="obj"
                                  reflow="true"
                                  rows="4" id="listagem">
+                        <f:facet name="header">
+                            <div class="ui-fluid">
+                                <p:panelGrid columns="9" layout="grid"
+                                             styleClass="ui-panelgrid-blank"
+                                             columnClasses="ui-grid-col-1, ui-grid-col-2,
+                                             ui-grid-col-1, ui-grid-col-3, ui-grid-col-1,
+                                             ui-grid-col-2, ui-grid-col-2" style="text-align:center">
+                                    <p:outputLabel value="Ordem:" />
+                                    <p:selectOneMenu value="#{controleOS.dao.ordem}">                                        
+                                        <f:selectItem itemLabel="Tipo OS" itemValue="tipo_os"/>
+                                        <f:selectItem itemLabel="Status" itemValue="status"/>
+                                        <p:ajax update="listagem"/>
+                                    </p:selectOneMenu>
+                                    <p:outputLabel value="Filtro: "/>
+                                    <p:inputText value="#{controleOS.dao.filtro}"/>                                                            
+                                    <p:commandButton value="Filtrar" update="listagem" icon="ui-icon-search"/>
+                                    <p:outputLabel value="Máximo de objetos:"/>
+                                    <p:inputText value="#{controleOS.dao.maximoObjetos}" size="10">
+                                        <p:ajax event="keyup" update="listagem"/>
+                                    </p:inputText>
+                                    
+                                   
+                                </p:panelGrid>
+                            </div>                                            
+                        </f:facet>
+                        
                         <p:column headerText="Tipo">
                             <p:outputLabel value="#{obj.tipo_OS.nome}"/>
                         </p:column>

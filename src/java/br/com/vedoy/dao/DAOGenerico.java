@@ -3,6 +3,7 @@ package br.com.vedoy.dao;
 import br.com.vedoy.controle.ControleLogin;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -87,16 +88,14 @@ public class DAOGenerico<T> implements Serializable {
             posicaoAtual = totalObjetos - maximoObjetos;
         }
     }
-    
-   
-   
-  
+
     public String getMensagemNavegacao(){
         int ate = posicaoAtual + maximoObjetos;
         if (ate > totalObjetos){
             ate = totalObjetos;
         }
-        return "User:  "+getUser();
+        return "Listando de " + (posicaoAtual +1) + " até " + totalObjetos + " de " +
+                totalObjetos + " registros";
     }
     
     public void persist(@Valid T obj) throws Exception {
@@ -107,6 +106,7 @@ public class DAOGenerico<T> implements Serializable {
         em.merge(obj);
     }
     
+   @RolesAllowed("ADMINISTRADOR")
     public void remove(T obj) throws Exception {
         obj = em.merge(obj);
         em.remove(obj);

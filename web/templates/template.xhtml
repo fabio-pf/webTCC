@@ -44,7 +44,7 @@
                                               ajax="false"
                                               action="#{controleOS.listar()}"
                                               rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR', 'ATENDENTE'])}"/>
-                            <b:navCommandLink value="OS Pendentes" 
+                            <b:navCommandLink value="OS Pendentes Cliente" 
                                               ajax="false"
                                               action="#{controleOS.listarCliente()}"
                                               rendered="#{controleLogin.temPermissoes(['CLIENTE'])}"/>
@@ -59,20 +59,6 @@
                                               rendered="#{controleLogin.temPermissoes(['TECNICO'])}"/>
                             </b:dropMenu>
                             </b:dropMenu>
-                        </b:dropMenu>
-                        <b:dropMenu value="Relatorios"
-                                    rendered="#{controleLogin.usuarioAutenticado != null}">
-                            <b:navCommandLink value="Produtos"
-                                              ajax="false"
-                                              action="#{controleProdutos.gerarRelatorio()}"
-                                              rendered="#{controleLogin.temPermissoes(['ADMINISTRADOR','TECNICO'])}"/>
-                        </b:dropMenu>
-                        
-                        <b:dropMenu value="Sobre.."
-                                    rendered="#{controleLogin.usuarioAutenticado != null}">
-                            <b:navCommandLink value="Categorias"
-                                              ajax="false" />
-
                         </b:dropMenu>
 
                         <b:dropMenu value="Usuário: #{controleLogin.usuarioAutenticado != null ?

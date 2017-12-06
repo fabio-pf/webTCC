@@ -5,10 +5,7 @@
  */
 package br.com.vedoy.controle;
 
-import br.com.vedoy.dao.DAOGenerico;
-import br.com.vedoy.dao.OsDAO;
 import br.com.vedoy.dao.UsuarioDAO;
-import br.com.vedoy.modelo.Ordem_Servicos;
 import br.com.vedoy.util.Util;
 import br.com.vedoy.modelo.Usuarios;
 import java.io.Serializable;
@@ -20,7 +17,6 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotNull;
-import net.bootsfaces.component.alert.Alert;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
@@ -40,6 +36,7 @@ public class ControleLogin implements Serializable {
     @NotNull(message = "A senha não pode ser nula")
     @NotBlank(message = "A senha deve ser informada")
     private String senha;
+    private ControleOS cos = new ControleOS();
     
    
 
@@ -103,6 +100,8 @@ public class ControleLogin implements Serializable {
         return false;
 
     }
+    
+    
 
     @Override
     public boolean equals(Object obj) {
@@ -139,5 +138,39 @@ public class ControleLogin implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+    
+    
+     public String listaOS(String tipo){
+        
+           if("ADMINISTRADOR".equals(tipo)){
+                System.out.println("tipo recebido1 = "+tipo);
+                return getCos().listar();
+           }
+                
+            if("TECNICO".equals(tipo)){
+                System.out.println("tipo recebido2 = "+tipo);
+                return getCos().listarTecnicoTodas();
+            }
+            
+            if("CLIENTE".equals(tipo)){
+                System.out.println("tipo recebido3 = "+tipo);
+                return getCos().listarCliente();
+            }
+            
+            if("ATENDENTE".equals(tipo)){
+                System.out.println("tipo recebido4 = "+tipo);
+                return getCos().listar();
+            }
+        
+        return null;
+    }
+
+    public ControleOS getCos() {
+        return cos;
+    }
+
+    public void setCos(ControleOS cos) {
+        this.cos = cos;
     }
 }

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelOS" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7d0b8380-3398-4a33-93b4-909286c1d764">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     *,
+     ordem_servicos."descricao" AS ordem_servicos_descricao,
+     ordem_servicos."prioridade" AS ordem_servicos_prioridade,
+     ordem_servicos."inicio" AS ordem_servicos_inicio,
+     ordem_servicos."status" AS ordem_servicos_status,
+     ordem_servicos."atendente" AS ordem_servicos_atendente,
+     ordem_servicos."cliente" AS ordem_servicos_cliente,
+     ordem_servicos."produto" AS ordem_servicos_produto,
+     ordem_servicos."tecnico" AS ordem_servicos_tecnico,
+     ordem_servicos."tipo_os" AS ordem_servicos_tipo_os
+FROM
+     "ordem_servicos" ordem_servicos]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="observacoes" class="java.lang.String"/>
+	<field name="descricao" class="java.lang.String"/>
+	<field name="fim" class="java.sql.Date"/>
+	<field name="inicio" class="java.sql.Date"/>
+	<field name="prioridade" class="java.lang.Integer"/>
+	<field name="status" class="java.lang.Boolean"/>
+	<field name="atendente" class="java.lang.Integer"/>
+	<field name="causaprincipal" class="java.lang.Integer"/>
+	<field name="cliente" class="java.lang.Integer"/>
+	<field name="produto" class="java.lang.Integer"/>
+	<field name="sintomaprincipal" class="java.lang.Integer"/>
+	<field name="tecnico" class="java.lang.Integer"/>
+	<field name="tipo_os" class="java.lang.Integer"/>
+	<field name="ordem_servicos_descricao" class="java.lang.String"/>
+	<field name="ordem_servicos_prioridade" class="java.lang.Integer"/>
+	<field name="ordem_servicos_inicio" class="java.sql.Date"/>
+	<field name="ordem_servicos_status" class="java.lang.Boolean"/>
+	<field name="ordem_servicos_atendente" class="java.lang.Integer"/>
+	<field name="ordem_servicos_cliente" class="java.lang.Integer"/>
+	<field name="ordem_servicos_produto" class="java.lang.Integer"/>
+	<field name="ordem_servicos_tecnico" class="java.lang.Integer"/>
+	<field name="ordem_servicos_tipo_os" class="java.lang.Integer"/>
+	<group name="Group1"/>
+	<group name="Group2"/>
+	<group name="Group3"/>
+	<group name="Group4"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#99FF33" uuid="92726ad6-b2f2-48bc-830b-f93fe9309e4e"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="06c77ba5-3fb5-435a-9c96-d8be94101f5a"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[OS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="c6fc00f8-3e27-4a51-8fbb-7b049003d7f1"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Relatorio de OS]]></text>
+				</staticText>
+				<textField pattern="dd/MM/yyyy">
+					<reportElement x="475" y="63" width="100" height="20" uuid="2b887fe4-3da6-471a-a9fc-f5d83be26ca8"/>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="436" y="63" width="39" height="20" uuid="91c5175b-25fe-4b09-8ea3-225b569629a4"/>
+					<text><![CDATA[DATA..:]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="23">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="183" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="ef5cfa82-e010-473a-afd2-64c6fe4665f5"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ordens de Serviço]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="d7a61d7f-56e7-4451-ba69-470ee34260a6"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="86">
+			<textField>
+				<reportElement x="100" y="20" width="243" height="20" uuid="c3c257a4-8d69-4e67-bcb1-376cee5906ce"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="40" width="100" height="20" uuid="9f563e58-43dd-4e09-9fdc-b2a371fc7ffd"/>
+				<textFieldExpression><![CDATA[$F{produto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="60" width="70" height="20" uuid="f9e2e44f-dee4-4853-acb4-744f8101dcb1"/>
+				<textFieldExpression><![CDATA[$F{ordem_servicos_inicio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="100" height="20" uuid="6b4f6552-2d1a-4cf5-9cb9-74e11f93fe64"/>
+				<text><![CDATA[DESCRIÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="100" height="20" uuid="c0baf25b-06f6-4d94-9bb5-faf7a00819d6"/>
+				<text><![CDATA[PRODUTO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="100" height="20" uuid="2108de81-0160-406e-af2b-d2f9f7b69f5e"/>
+				<text><![CDATA[INICIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="83c3c15a-db48-408d-af9e-ced1c11f5c14"/>
+				<text><![CDATA[CLIENTE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="0" width="100" height="20" uuid="61cf5a91-816c-4877-ab3c-7d5b1e44e965"/>
+				<textFieldExpression><![CDATA[$F{ordem_servicos_cliente}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="ad5db42e-dbe3-45e8-af21-83b20b3d372b"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="0a58ba12-d427-496c-ab62-b233e2b4d44f"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

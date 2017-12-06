@@ -20,6 +20,7 @@ import br.com.vedoy.modelo.Pessoas;
 import br.com.vedoy.modelo.Produtos;
 import br.com.vedoy.modelo.Sintomas;
 import br.com.vedoy.modelo.Usuarios;
+import br.com.vedoy.relatorios.Relatorio;
 import br.com.vedoy.util.Util;
 import br.com.vedoy.util.UtilRelatorios;
 import java.io.Serializable;
@@ -33,6 +34,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import net.bootsfaces.component.alert.Alert;
 
 /**
  *
@@ -67,6 +69,7 @@ public class ControleOS implements Serializable {
     private String usuarioLogado;
     private Integer tipoUsu;
     private Calendar data =Calendar.getInstance();
+    private List<Ordem_Servicos> lista = new ArrayList<Ordem_Servicos>();
     
 
     public ControleOS() {
@@ -74,16 +77,7 @@ public class ControleOS implements Serializable {
         editandoCausa = false;
         editandoSintoma = false;
     }
-
-    public void imprimePessoa(Integer id) throws Exception {
-        objeto = dao.getObjectById(id);
-        List<Ordem_Servicos> lista = new ArrayList<>();
-        lista.add(objeto);
-        HashMap parametros = new HashMap();
-        UtilRelatorios.imprimeRelatorio("relatorioOrdemServico", parametros, lista);
-    }
     
-
     public String listar() {
         editando = false;
         editandoCausa = false;
@@ -361,7 +355,7 @@ public class ControleOS implements Serializable {
         data.setTime(date);
         if(estado==false){
            objeto.setFim(data);
-            Util.mensagemInformacao("data: "+data+" estado: "+estado+" ID "+id);
+            //Util.mensagemInformacao("data: "+data+" estado: "+estado+" ID "+id);
         }
    }
         public void setaInicio(){
@@ -378,6 +372,9 @@ public class ControleOS implements Serializable {
     public void setData(Calendar data) {
         this.data = data;
     }
+    
+    
+   
     
     
 }
